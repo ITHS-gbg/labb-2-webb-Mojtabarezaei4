@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Handlers\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 
