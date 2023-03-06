@@ -1,5 +1,8 @@
 using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
+using BonsaiTreeShop.DataAccess.Repositories;
+using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
+using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +28,9 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -53,6 +59,24 @@ app.UseRouting();
 
 app.UseIdentityServer();
 app.UseAuthorization();
+
+
+app.MapGet("/products", async (IRepository<Product> repo) =>
+{
+    return Results.Ok(await repo.GetAllAsync());
+});
+
+app.MapPost("/addProduct", async (IRepository<Product> repo, ProductDto dto) =>
+{
+    return Results.Ok( await repo.AddAsync(new Product()
+    {
+        Name = dto.Name,
+        Category = dto.Category,
+        Description = dto.Description,
+        Image = dto.Image,
+        Price = dto.Price
+    }));
+});
 
 
 app.MapRazorPages();
