@@ -1,9 +1,14 @@
+using BonsaiTreeShop.DataAccess;
 using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
+using BonsaiTreeShop.DataAccess.Queries;
 using BonsaiTreeShop.DataAccess.Repositories;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
+using BonsaiTreeShop.Server.Extensions;
 using BonsaiTreeShop.Shared.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,8 +34,10 @@ builder.Services.AddIdentityServer()
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
-builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
-builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
+builder.Services.AddTransient<IRepository<Product>, ProductRepository>();
+builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DataAccessMediatREntryPoint).Assembly));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -61,23 +68,23 @@ app.UseIdentityServer();
 app.UseAuthorization();
 
 
-app.MapGet("/products", async (IRepository<Product> repo) =>
+app.MapGet("/products", async (IMediator mediator) =>
 {
-    return Results.Ok(await repo.GetAllAsync());
+    return Results.Ok(await mediator.Send( new GetAllProductQuery()));
 });
 
-app.MapPost("/addProduct", async (IRepository<Product> repo, ProductDto dto) =>
-{
-    return Results.Ok( await repo.AddAsync(new Product()
-    {
-        Name = dto.Name,
-        Category = dto.Category,
-        Description = dto.Description,
-        Image = dto.Image,
-        Price = dto.Price
-    }));
-});
-
+//app.MapPost("/addProduct", async (IRepository<Product> repo, ProductDto dto) =>
+//{
+//    return Results.Ok( await repo.AddAsync(new Product()
+//    {
+//        Name = dto.Name,
+//        Category = dto.Category,
+//        Description = dto.Description,
+//        Image = dto.Image,
+//        Price = dto.Price
+//    }));
+//});
+//app.MapProductEndpoints();
 
 app.MapRazorPages();
 app.MapControllers();
