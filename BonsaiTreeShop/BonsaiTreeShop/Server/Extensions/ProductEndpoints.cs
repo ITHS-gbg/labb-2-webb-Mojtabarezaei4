@@ -7,6 +7,7 @@ public static class ProductEndpoints
     public static void MapProductEndpoints(this WebApplication app)
     {
         app.MediateGet<GetAllProductRequest>("products");
-        
+
+        app.MediatePost<AddProductRequest>("addProduct");
     }
 }

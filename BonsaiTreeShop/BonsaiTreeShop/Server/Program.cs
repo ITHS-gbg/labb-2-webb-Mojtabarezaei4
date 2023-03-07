@@ -37,7 +37,10 @@ builder.Services.AddAuthentication()
 builder.Services.AddTransient<IRepository<Product>, ProductRepository>();
 builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DataAccessMediatREntryPoint).Assembly));
+builder.Services.AddMediatR(cfg => {
+    cfg.RegisterServicesFromAssembly(typeof(DataAccessMediatREntryPoint).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -68,10 +71,10 @@ app.UseIdentityServer();
 app.UseAuthorization();
 
 
-app.MapGet("/products", async (IMediator mediator) =>
-{
-    return Results.Ok(await mediator.Send( new GetAllProductQuery()));
-});
+//app.MapGet("/products", async (IMediator mediator) =>
+//{
+//    return Results.Ok(await mediator.Send( new GetAllProductQuery()));
+//});
 
 //app.MapPost("/addProduct", async (IRepository<Product> repo, ProductDto dto) =>
 //{
@@ -84,7 +87,7 @@ app.MapGet("/products", async (IMediator mediator) =>
 //        Price = dto.Price
 //    }));
 //});
-//app.MapProductEndpoints();
+app.MapProductEndpoints();
 
 app.MapRazorPages();
 app.MapControllers();
