@@ -1,5 +1,6 @@
 ﻿using BonsaiTreeShop.DataAccess.Commands;
 using BonsaiTreeShop.DataAccess.Model;
+using BonsaiTreeShop.DataAccess.Repositories;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using MediatR;
 
@@ -7,11 +8,11 @@ namespace BonsaiTreeShop.DataAccess.Handlers;
 
 public class AddProductHandler: IRequestHandler<AddProductCommand, Product>
 {
-    private readonly IRepository<Product> _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AddProductHandler(IRepository<Product> repository)
+    public AddProductHandler(IUnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Product?> Handle(AddProductCommand request, CancellationToken cancellationToken)
@@ -24,6 +25,13 @@ public class AddProductHandler: IRequestHandler<AddProductCommand, Product>
             Image = request.ProductDto.Image,
             Price = request.ProductDto.Price
         };
-        return await _repository.AddAsync(product) ?? null;
+        if (product is null)
+        {
+            return null;
+        }
+
+        await _unitOfWork.ProductRepository.AddAsync(product);
+        await _unitOfWork.CompleteAsync();
+        return product;
     }
 }

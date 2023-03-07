@@ -7,14 +7,14 @@ namespace BonsaiTreeShop.DataAccess.Handlers;
 
 public class GetAllProductHandler: IRequestHandler<GetAllProductQuery, IEnumerable<Product>>
 {
-    private readonly IRepository<Product> _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetAllProductHandler(IRepository<Product> repository)
+    public GetAllProductHandler(IUnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
     public async Task<IEnumerable<Product>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
     { 
-        return await _repository.GetAllAsync();
+        return await _unitOfWork.ProductRepository.GetAllAsync();
     }
 }
