@@ -1,10 +1,10 @@
 ﻿namespace BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 
-public interface IRepository<T> where T : class
+public interface IRepository<TDto> where TDto : class
 {
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T?> GetByIdAsync(object id);
-    Task<T?> AddAsync(T entity);
-    Task<T?> UpdateAsync(T entity);
+    Task<IEnumerable<TDto>> GetAllAsync();
+    Task<TDto?> GetByIdAsync(object id);
+    Task<TDto?> AddAsync(TDto dto);
+    Task<TDto?> UpdateAsync(TDto dto, object id);
     Task? DeleteByIdAsync(object id);
 }

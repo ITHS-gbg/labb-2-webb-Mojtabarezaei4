@@ -31,7 +31,7 @@ public class UserRepository: IRepository<User>
         return user;
     }
 
-    public async Task<User?> UpdateAsync(User user)
+    public async Task<User?> UpdateAsync(User user, object id)
     {
         var existingUser = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
         if (existingUser is null) return null;

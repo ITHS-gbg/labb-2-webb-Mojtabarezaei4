@@ -5,6 +5,8 @@ using BonsaiTreeShop.DataAccess.Queries;
 using BonsaiTreeShop.DataAccess.Repositories;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.Server.Extensions;
+using BonsaiTreeShop.Server.Services;
+using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -40,6 +42,8 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(DataAccessMediatREntryPoint).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
+
+builder.Services.AddTransient<IResponseService<ProductDto>, ProductResponseService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

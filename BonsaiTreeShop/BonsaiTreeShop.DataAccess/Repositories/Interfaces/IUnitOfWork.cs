@@ -1,10 +1,11 @@
 ﻿using BonsaiTreeShop.DataAccess.Model;
+using BonsaiTreeShop.Shared.DTOs;
 
 namespace BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 
 public interface IUnitOfWork
 {
-    IRepository<Product> ProductRepository { get; }
+    IRepository<ProductDto> ProductRepository { get; }
 
     Task CompleteAsync();
 }

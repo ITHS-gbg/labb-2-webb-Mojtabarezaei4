@@ -31,7 +31,7 @@ public class OrderRepository: IRepository<Order>
         return order;
     }
 
-    public async Task<Order?> UpdateAsync(Order order)
+    public async Task<Order?> UpdateAsync(Order order, object id)
     {
         var filter = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == order.Id);
         

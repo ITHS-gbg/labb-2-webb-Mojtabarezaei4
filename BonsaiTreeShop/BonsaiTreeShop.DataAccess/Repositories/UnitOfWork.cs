@@ -1,13 +1,14 @@
 ﻿using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
+using BonsaiTreeShop.Shared.DTOs;
 
 namespace BonsaiTreeShop.DataAccess.Repositories;
 
 public class UnitOfWork: IUnitOfWork, IDisposable
 {
     private readonly DataContext _dataContext;
-    public IRepository<Product> ProductRepository { get; private set; }
+    public IRepository<ProductDto> ProductRepository { get; private set; }
 
     public UnitOfWork(DataContext dataContext)
     {

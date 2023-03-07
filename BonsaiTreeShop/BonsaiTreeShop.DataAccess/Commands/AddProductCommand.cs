@@ -4,4 +4,4 @@ using MediatR;
 
 namespace BonsaiTreeShop.DataAccess.Commands;
 
-public record AddProductCommand(ProductDto ProductDto): IRequest<Product>;
+public record AddProductCommand(ProductDto ProductDto): IRequest<ProductDto>;
