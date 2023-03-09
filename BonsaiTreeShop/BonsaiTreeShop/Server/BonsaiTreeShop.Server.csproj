@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Handlers\" />
-    <Folder Include="Services\" />
     <Folder Include="Requests\" />
   </ItemGroup>
 

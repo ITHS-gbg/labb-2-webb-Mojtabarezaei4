@@ -1,7 +1,4 @@
-﻿using BonsaiTreeShop.DataAccess.Model;
-using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
-using BonsaiTreeShop.Server.Requests;
-using BonsaiTreeShop.Shared.DTOs;
+﻿using BonsaiTreeShop.Server.Requests;
 using MediatR;
 
 namespace BonsaiTreeShop.Server.Extensions;
