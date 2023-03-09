@@ -3,7 +3,7 @@ using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
-using BonsaiTreeShop.Server.Extensions;
+using BonsaiTreeShop.Server.Extensions.ProductsEndpoints;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 

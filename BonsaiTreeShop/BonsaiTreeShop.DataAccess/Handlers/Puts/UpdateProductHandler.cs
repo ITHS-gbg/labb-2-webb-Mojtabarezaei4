@@ -1,24 +1,25 @@
-﻿using BonsaiTreeShop.DataAccess.Commands;
+﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers;
+namespace BonsaiTreeShop.DataAccess.Handlers.Puts;
 
-public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, ServiceResponse<ProductDto?>>
+public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, ServiceResponse<ProductDto?>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteProductHandler(IUnitOfWork unitOfWork)
+    public UpdateProductHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ServiceResponse<ProductDto?>> Handle(DeleteProductCommand request,
+    public async Task<ServiceResponse<ProductDto?>> Handle(UpdateProductCommand request,
         CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.DeleteByIdAsync(request.Id);
+        var product = await _unitOfWork.ProductRepository.UpdateAsync(request.ProductDto, request.Id);
+
         if (product is null)
             return new ServiceResponse<ProductDto?>()
             {

@@ -1,8 +1,8 @@
-﻿using BonsaiTreeShop.DataAccess.Queries;
-using BonsaiTreeShop.Server.Requests;
+﻿using BonsaiTreeShop.DataAccess.Queries.ProductQueries;
+using BonsaiTreeShop.Server.Requests.Gets;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers;
+namespace BonsaiTreeShop.Server.Handlers.Gets;
 
 public class GetProductByIdHandler : IRequestHandler<GetProductByIdRequest, IResult>
 {

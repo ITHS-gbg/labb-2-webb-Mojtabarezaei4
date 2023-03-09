@@ -1,6 +1,9 @@
-﻿using BonsaiTreeShop.Server.Requests;
+﻿using BonsaiTreeShop.Server.Requests.Deletes;
+using BonsaiTreeShop.Server.Requests.Gets;
+using BonsaiTreeShop.Server.Requests.Posts;
+using BonsaiTreeShop.Server.Requests.Puts;
 
-namespace BonsaiTreeShop.Server.Extensions;
+namespace BonsaiTreeShop.Server.Extensions.ProductsEndpoints;
 
 public static class ProductEndpoints
 {

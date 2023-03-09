@@ -1,11 +1,11 @@
-﻿using BonsaiTreeShop.DataAccess.Commands;
-using BonsaiTreeShop.Server.Requests;
+﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
+using BonsaiTreeShop.Server.Requests.Deletes;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers;
+namespace BonsaiTreeShop.Server.Handlers.Deletes;
 
-public class DeleteProductHandler: IRequestHandler<DeleteProductRequest, IResult>
-{ 
+public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, IResult>
+{
     private readonly IMediator _mediator;
 
     public DeleteProductHandler(IMediator mediator)

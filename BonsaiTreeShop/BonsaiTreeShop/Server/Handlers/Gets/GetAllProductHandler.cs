@@ -1,10 +1,10 @@
-﻿using BonsaiTreeShop.DataAccess.Queries;
-using BonsaiTreeShop.Server.Requests;
+﻿using BonsaiTreeShop.DataAccess.Queries.ProductQueries;
+using BonsaiTreeShop.Server.Requests.Gets;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers;
+namespace BonsaiTreeShop.Server.Handlers.Gets;
 
-public class GetAllProductHandler: IRequestHandler<GetAllProductRequest, IResult>
+public class GetAllProductHandler : IRequestHandler<GetAllProductRequest, IResult>
 {
     private readonly IMediator _mediator;
 
@@ -16,6 +16,6 @@ public class GetAllProductHandler: IRequestHandler<GetAllProductRequest, IResult
     {
         var response = await _mediator.Send(new GetAllProductQuery());
 
-        return response.Success ? Results.Ok(response): Results.NoContent();
+        return response.Success ? Results.Ok(response) : Results.NoContent();
     }
 }

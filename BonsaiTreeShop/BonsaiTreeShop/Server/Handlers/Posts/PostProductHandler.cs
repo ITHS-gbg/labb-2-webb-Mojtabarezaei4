@@ -1,10 +1,10 @@
-﻿using BonsaiTreeShop.DataAccess.Commands;
-using BonsaiTreeShop.Server.Requests;
+﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
+using BonsaiTreeShop.Server.Requests.Posts;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers;
+namespace BonsaiTreeShop.Server.Handlers.Posts;
 
-public class PostProductHandler: IRequestHandler<PostProductRequest, IResult>
+public class PostProductHandler : IRequestHandler<PostProductRequest, IResult>
 {
     private readonly IMediator _mediator;
 

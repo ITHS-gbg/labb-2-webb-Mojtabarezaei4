@@ -1,12 +1,12 @@
-﻿using BonsaiTreeShop.DataAccess.Queries;
+﻿using BonsaiTreeShop.DataAccess.Queries.ProductQueries;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers;
+namespace BonsaiTreeShop.DataAccess.Handlers.Gets;
 
-public class GetAllProductHandler: IRequestHandler<GetAllProductQuery, ServiceResponse<IEnumerable<ProductDto>>>
+public class GetAllProductHandler : IRequestHandler<GetAllProductQuery, ServiceResponse<IEnumerable<ProductDto>>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
