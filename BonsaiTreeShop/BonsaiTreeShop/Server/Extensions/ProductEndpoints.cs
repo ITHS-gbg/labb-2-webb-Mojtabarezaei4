@@ -10,5 +10,7 @@ public static class ProductEndpoints
         app.MediateGet<GetProductByIdRequest>("/products/{id}");
 
         app.MediatePost<PostProductRequest>("/addProduct");
+
+        app.MediatePut<UpdateProductRequest>("/products/{id}");
     }
 }

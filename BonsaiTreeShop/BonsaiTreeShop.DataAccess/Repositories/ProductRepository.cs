@@ -53,17 +53,13 @@ public class ProductRepository : IRepository<ProductDto>
 
     public async Task<ProductDto?> UpdateAsync(ProductDto product, object id)
     {
-        var filter = await _dataContext.Products.FirstOrDefaultAsync(p => p.Name == product.Name);
-        if (filter is null) return null;
-        var newProduct = new Product()
-        {
-            Name = product.Name,
-            Category = product.Category,
-            Description = product.Description,
-            Image = product.Image,
-            Price = product.Price
-        };
-        _dataContext.Products.Update(newProduct);
+        var existingProduct = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == (Guid)id);
+        if (existingProduct is null) return null;
+        existingProduct.Name = product.Name;
+        existingProduct.Category = product.Category;
+        existingProduct.Description = product.Description;
+        existingProduct.Image = product.Image;
+        existingProduct.Price = product.Price;
         return product;
     }
 
