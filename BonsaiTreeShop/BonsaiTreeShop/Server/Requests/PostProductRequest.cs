@@ -2,4 +2,4 @@
 
 namespace BonsaiTreeShop.Server.Requests;
 
-public record AddProductRequest(ProductDto ProductDto) : IHttpRequest;
+public record PostProductRequest(ProductDto ProductDto) : IHttpRequest;
