@@ -6,5 +6,5 @@ public interface IRepository<TDto> where TDto : class
     Task<TDto?> GetByIdAsync(object id);
     Task<TDto?> AddAsync(TDto dto);
     Task<TDto?> UpdateAsync(TDto dto, object id);
-    Task? DeleteByIdAsync(object id);
+    Task<TDto?> DeleteByIdAsync(object id);
 }

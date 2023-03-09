@@ -1,6 +1,3 @@
 ﻿namespace BonsaiTreeShop.Server.Requests;
 
-public class GetAllProductRequest: IHttpRequest
-{
-    
-}
+public record GetAllProductRequest: IHttpRequest;

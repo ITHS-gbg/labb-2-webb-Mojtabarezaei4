@@ -12,5 +12,8 @@ public static class ProductEndpoints
         app.MediatePost<PostProductRequest>("/addProduct");
 
         app.MediatePut<UpdateProductRequest>("/products/{id}");
+
+        app.MediateDelete<DeleteProductRequest>("/products/{id}");
+
     }
 }

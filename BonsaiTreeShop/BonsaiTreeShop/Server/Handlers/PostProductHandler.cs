@@ -14,8 +14,7 @@ public class PostProductHandler: IRequestHandler<PostProductRequest, IResult>
     }
     public async Task<IResult> Handle(PostProductRequest request, CancellationToken cancellationToken)
     {
-        var product = request.ProductDto;
-        var response = await _mediator.Send(new AddProductCommand(product));
+        var response = await _mediator.Send(new AddProductCommand(request.ProductDto));
 
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);
     }

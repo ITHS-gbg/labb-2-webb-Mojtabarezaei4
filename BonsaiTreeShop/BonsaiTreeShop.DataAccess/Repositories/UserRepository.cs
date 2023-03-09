@@ -44,10 +44,11 @@ public class UserRepository: IRepository<User>
         return existingUser;
     }
 
-    public async Task? DeleteByIdAsync(object id)
+    public async Task<User?> DeleteByIdAsync(object id)
     {
         var existingUser = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == (string)id);
-        if (existingUser is null) return;
+        if (existingUser is null) return null;
         _userDbContext.Users.Remove(existingUser);
+        return existingUser;
     }
 }

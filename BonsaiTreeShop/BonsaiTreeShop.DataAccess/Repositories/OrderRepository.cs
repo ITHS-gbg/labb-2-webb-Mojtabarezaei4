@@ -33,21 +33,22 @@ public class OrderRepository: IRepository<Order>
 
     public async Task<Order?> UpdateAsync(Order order, object id)
     {
-        var filter = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == order.Id);
+        var existingOrder = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == order.Id);
         
-        if (filter is null) return null;
+        if (existingOrder is null) return null;
 
-        _dataContext.Orders.Update(filter);
+        _dataContext.Orders.Update(existingOrder);
         
         return order;
     }
 
-    public async Task? DeleteByIdAsync(object id)
+    public async Task<Order?> DeleteByIdAsync(object id)
     {
-        var filter = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == (Guid)id);
+        var existingOrder = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == (Guid)id);
 
-        if (filter is null) return;
+        if (existingOrder is null) return null;
 
-        _dataContext.Orders.Remove(filter);
+        _dataContext.Orders.Remove(existingOrder);
+        return existingOrder;
     }
 }

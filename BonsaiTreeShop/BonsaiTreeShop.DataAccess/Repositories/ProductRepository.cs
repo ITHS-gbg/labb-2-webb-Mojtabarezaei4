@@ -63,10 +63,15 @@ public class ProductRepository : IRepository<ProductDto>
         return product;
     }
 
-    public async Task? DeleteByIdAsync(object id)
+    public async Task<ProductDto?> DeleteByIdAsync(object id)
     {
-        var filter = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == (Guid)id);
-        if (filter is null) return;
-        _dataContext.Products.Remove(filter);
+        var existingProduct = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == (Guid)id);
+        
+        if (existingProduct is null) return null;
+
+        _dataContext.Products.Remove(existingProduct);
+        
+        return new ProductDto(existingProduct.Name, existingProduct.Description, 
+            existingProduct.Price, existingProduct.Image, existingProduct.Category);
     }
 }
