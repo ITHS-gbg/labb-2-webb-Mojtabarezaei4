@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using BonsaiTreeShop.DataAccess;
 using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
@@ -23,11 +24,17 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<User>(options => 
-        options.SignIn.RequireConfirmedAccount = true)
+        options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<User, UserDbContext>();
+    .AddApiAuthorization<User, UserDbContext>(options =>
+    {
+        options.IdentityResources["openid"].UserClaims.Add("role");
+        options.ApiResources.Single().UserClaims.Add("role");
+    });
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
@@ -38,6 +45,8 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(DataAccessMediatREntryPoint).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
+
+builder.Services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireClaim("role")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

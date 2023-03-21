@@ -15,6 +15,8 @@ public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, IResul
 
     public async Task<IResult> Handle(DeleteProductRequest request, CancellationToken cancellationToken)
     {
+        if (!request.HttpContext.User.IsInRole("Admin")) return Results.Unauthorized();
+
         var response = await _mediator.Send(new DeleteProductCommand(request.Id));
 
         return response.Success ? Results.Ok(response) : Results.NotFound(response);

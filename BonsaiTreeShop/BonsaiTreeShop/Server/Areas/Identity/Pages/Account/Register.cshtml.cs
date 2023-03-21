@@ -154,6 +154,14 @@ namespace BonsaiTreeShop.Server.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        if (Input.Email.Contains("@admin.com"))
+                        {
+                            await _userManager.AddToRoleAsync(user, "Admin");
+                        }
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(user, "Customer");
+                        }
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
