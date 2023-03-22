@@ -14,6 +14,8 @@ public class PostProductHandler : IRequestHandler<PostProductRequest, IResult>
     }
     public async Task<IResult> Handle(PostProductRequest request, CancellationToken cancellationToken)
     {
+        if (!request.HttpContext.User.IsInRole("Admin")) return Results.Unauthorized();
+
         var response = await _mediator.Send(new AddProductCommand(request.ProductDto));
 
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);

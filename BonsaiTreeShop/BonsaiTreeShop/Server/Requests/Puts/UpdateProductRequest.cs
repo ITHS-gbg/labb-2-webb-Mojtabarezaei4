@@ -2,4 +2,4 @@
 
 namespace BonsaiTreeShop.Server.Requests.Puts;
 
-public record UpdateProductRequest(ProductDto ProductDto, Guid Id) : IHttpRequest;
+public record UpdateProductRequest(ProductDto ProductDto, Guid Id, HttpContext HttpContext) : IHttpRequest;

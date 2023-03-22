@@ -15,6 +15,8 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductRequest, IResul
 
     public async Task<IResult> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
     {
+        if (!request.HttpContext.User.IsInRole("Admin")) return Results.Unauthorized();
+
         var response = await _mediator.Send(new UpdateProductCommand(request.ProductDto, request.Id));
 
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);
