@@ -4,7 +4,7 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Puts;
+namespace BonsaiTreeShop.DataAccess.Handlers.Puts.ProductPut;
 
 public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, ServiceResponse<ProductDto?>>
 {

@@ -1,8 +1,8 @@
 ﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
-using BonsaiTreeShop.Server.Requests.Puts;
+using BonsaiTreeShop.Server.Requests.Puts.ProductPut;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers.Puts;
+namespace BonsaiTreeShop.Server.Handlers.Puts.ProductPut;
 
 public class UpdateProductHandler : IRequestHandler<UpdateProductRequest, IResult>
 {

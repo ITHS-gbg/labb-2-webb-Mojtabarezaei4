@@ -1,8 +1,8 @@
 ﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
-using BonsaiTreeShop.Server.Requests.Deletes;
+using BonsaiTreeShop.Server.Requests.Deletes.ProductDelete;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers.Deletes;
+namespace BonsaiTreeShop.Server.Handlers.Deletes.ProductDelete;
 
 public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, IResult>
 {

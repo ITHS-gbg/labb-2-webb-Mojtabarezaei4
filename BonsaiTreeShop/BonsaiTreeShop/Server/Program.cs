@@ -5,6 +5,7 @@ using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.Server.Extensions.ProductsEndpoints;
+using BonsaiTreeShop.Server.Extensions.UserEndpoints;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -78,6 +79,7 @@ app.UseAuthorization();
 
 // Mapping endPoints 
 app.MapProductEndpoints();
+app.MapUserEndpoints();
 
 app.MapRazorPages();
 app.MapControllers();

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\UserCommands\" />
+    <Folder Include="Handlers\Deletes\UserDelete\" />
     <Folder Include="Queries\UserQueries\" />
   </ItemGroup>
 

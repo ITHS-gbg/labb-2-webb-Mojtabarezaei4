@@ -4,7 +4,7 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Gets;
+namespace BonsaiTreeShop.DataAccess.Handlers.Gets.ProductGets;
 
 public class GetAllProductHandler : IRequestHandler<GetAllProductQuery, ServiceResponse<IEnumerable<ProductDto>>>
 {

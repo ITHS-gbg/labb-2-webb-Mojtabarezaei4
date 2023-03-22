@@ -1,8 +1,8 @@
 ﻿using BonsaiTreeShop.DataAccess.Commands.ProductCommands;
-using BonsaiTreeShop.Server.Requests.Posts;
+using BonsaiTreeShop.Server.Requests.Posts.ProductPost;
 using MediatR;
 
-namespace BonsaiTreeShop.Server.Handlers.Posts;
+namespace BonsaiTreeShop.Server.Handlers.Posts.ProductPost;
 
 public class PostProductHandler : IRequestHandler<PostProductRequest, IResult>
 {

@@ -1,7 +1,7 @@
-﻿using BonsaiTreeShop.Server.Requests.Deletes;
-using BonsaiTreeShop.Server.Requests.Gets;
-using BonsaiTreeShop.Server.Requests.Posts;
-using BonsaiTreeShop.Server.Requests.Puts;
+﻿using BonsaiTreeShop.Server.Requests.Deletes.ProductDelete;
+using BonsaiTreeShop.Server.Requests.Gets.ProductGets;
+using BonsaiTreeShop.Server.Requests.Posts.ProductPost;
+using BonsaiTreeShop.Server.Requests.Puts.ProductPut;
 
 namespace BonsaiTreeShop.Server.Extensions.ProductsEndpoints;
 

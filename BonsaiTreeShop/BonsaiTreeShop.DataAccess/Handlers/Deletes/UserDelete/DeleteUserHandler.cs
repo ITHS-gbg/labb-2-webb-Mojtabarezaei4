@@ -4,21 +4,19 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Puts;
+namespace BonsaiTreeShop.DataAccess.Handlers.Deletes.UserDelete;
 
-public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, ServiceResponse<UserDto?>>
+public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, ServiceResponse<UserDto?>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateUserHandler(IUnitOfWork unitOfWork)
+    public DeleteUserHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-
-    public async Task<ServiceResponse<UserDto?>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ServiceResponse<UserDto?>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.UserRepository.UpdateAsync(request.UserDto, request.Id);
-
+        var user = await _unitOfWork.UserRepository.DeleteByIdAsync(request.Id);
         if (user is null)
             return new ServiceResponse<UserDto?>()
             {

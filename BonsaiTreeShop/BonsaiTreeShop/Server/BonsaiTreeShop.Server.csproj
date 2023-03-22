@@ -35,4 +35,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\UserEndpoints\" />
+    <Folder Include="Handlers\Deletes\UserDelete\" />
+    <Folder Include="Handlers\Gets\UserGets\" />
+    <Folder Include="Requests\Deletes\UserDelete\" />
+    <Folder Include="Requests\Gets\UserGets\" />
+  </ItemGroup>
+
 </Project>

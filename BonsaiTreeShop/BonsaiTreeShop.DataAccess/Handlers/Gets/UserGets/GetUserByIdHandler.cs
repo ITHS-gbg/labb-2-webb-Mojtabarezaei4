@@ -4,7 +4,7 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Gets;
+namespace BonsaiTreeShop.DataAccess.Handlers.Gets.UserGets;
 
 public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, ServiceResponse<UserDto?>>
 {

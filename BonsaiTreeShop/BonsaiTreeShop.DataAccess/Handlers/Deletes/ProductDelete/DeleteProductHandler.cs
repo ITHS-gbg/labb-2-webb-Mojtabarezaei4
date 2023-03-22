@@ -4,7 +4,7 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Deletes;
+namespace BonsaiTreeShop.DataAccess.Handlers.Deletes.ProductDelete;
 
 public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, ServiceResponse<ProductDto?>>
 {

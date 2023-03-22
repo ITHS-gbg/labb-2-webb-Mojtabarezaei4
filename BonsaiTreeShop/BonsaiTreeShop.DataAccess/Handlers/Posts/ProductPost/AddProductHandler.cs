@@ -4,7 +4,7 @@ using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
-namespace BonsaiTreeShop.DataAccess.Handlers.Posts;
+namespace BonsaiTreeShop.DataAccess.Handlers.Posts.ProductPost;
 
 public class AddProductHandler : IRequestHandler<AddProductCommand, ServiceResponse<ProductDto?>>
 {
