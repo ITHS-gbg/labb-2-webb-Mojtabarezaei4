@@ -10,6 +10,6 @@ namespace BonsaiTreeShop.DataAccess.Model
 
         public string Address { get; set; } = string.Empty;
 
-        public List<Order> Orders { get; } = new List<Order>();
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

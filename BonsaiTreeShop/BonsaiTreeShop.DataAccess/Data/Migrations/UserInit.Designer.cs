@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BonsaiTreeShop.Server.Data.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
-    [Migration("20230321163004_RolesAdded")]
-    partial class RolesAdded
+    [DbContext(typeof(DataContext))]
+    [Migration("20230321134735_UserInit")]
+    partial class UserInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -349,20 +349,6 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "230b461a-46e6-4cc7-a274-cc4d0a8bb6fa",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "c7dac48b-96b7-4885-aebb-a742c336be68",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

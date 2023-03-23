@@ -17,23 +17,17 @@ public class AddProductHandler : IRequestHandler<AddProductCommand, ServiceRespo
 
     public async Task<ServiceResponse<ProductDto?>> Handle(AddProductCommand request, CancellationToken cancellationToken)
     {
-        var product = new ProductDto(
-            Name: request.ProductDto.Name,
-            Description: request.ProductDto.Description,
-            Price: request.ProductDto.Price,
-            Image: request.ProductDto.Image,
-            Category: request.ProductDto.Category
-        );
+        var product = await _unitOfWork.ProductRepository.AddAsync(request.ProductDto);
 
         if (product is null) return new ServiceResponse<ProductDto?>()
         {
             Success = false,
             Data = null,
-            Message = "Succeed"
+            Message = "Something went wrong!"
         };
 
-        await _unitOfWork.ProductRepository.AddAsync(product);
         await _unitOfWork.CompleteAsync();
+
         return new ServiceResponse<ProductDto?>()
         {
             Success = true,

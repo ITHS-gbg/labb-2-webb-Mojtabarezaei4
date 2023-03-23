@@ -4,6 +4,7 @@ using BonsaiTreeShop.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BonsaiTreeShop.Server.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230323105534_DB_Creration_1")]
+    partial class DB_Creration_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,17 +39,11 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -377,13 +374,13 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b416e975-1ff1-493c-bdea-6185eeb8af14",
+                            Id = "ae107dc3-326d-4225-949c-1c6176e43650",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8cc786d2-5e77-4777-a43b-969ded2f1102",
+                            Id = "b2d65a84-7807-45bb-9304-8f5ddb413dab",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -501,15 +498,11 @@ namespace BonsaiTreeShop.Server.Data.Migrations
 
             modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.Order", b =>
                 {
-                    b.HasOne("BonsaiTreeShop.DataAccess.Model.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BonsaiTreeShop.DataAccess.Model.User", null)
+                    b.HasOne("BonsaiTreeShop.DataAccess.Model.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.OrderDetail", b =>

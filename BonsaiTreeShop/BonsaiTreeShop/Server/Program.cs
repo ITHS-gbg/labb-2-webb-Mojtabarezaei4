@@ -16,9 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<UserDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -27,10 +24,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<User>(options => 
         options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<UserDbContext>();
+    .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<User, UserDbContext>(options =>
+    .AddApiAuthorization<User, DataContext>(options =>
     {
         options.IdentityResources["openid"].UserClaims.Add("role");
         options.ApiResources.Single().UserClaims.Add("role");

@@ -17,37 +17,20 @@ public class ProductRepository : IRepository<ProductDto>
 
     public async Task<IEnumerable<ProductDto>> GetAllAsync()
     {
-        var products = await _dataContext.Products
-            .Select(p => new ProductDto(
-                p.Name,
-                p.Description,
-                p.Price,
-                p.Image,
-                p.Category))
-            .ToListAsync();
+        var products = await _dataContext.Products.ToListAsync();
 
-        return products;
+        return products.Select(ConvertToDto).ToList();
     }
 
     public async Task<ProductDto?> GetByIdAsync(object id)
     {
         var product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == (Guid)id);
-        return product is not null ?
-            new ProductDto(product.Name, product.Description, product.Price, product.Image, product.Category)
-                   : null;
+        return product is not null ? ConvertToDto(product) : null;
     }
 
     public async Task<ProductDto?> AddAsync(ProductDto productDto)
     {
-        var newProduct = new Product()
-        {
-            Name = productDto.Name,
-            Category = productDto.Category,
-            Description = productDto.Description,
-            Image = productDto.Image,
-            Price = productDto.Price
-        };
-        await _dataContext.Products.AddAsync(newProduct);
+        await _dataContext.Products.AddAsync(ConvertToModel(productDto));
         return productDto;
     }
 
@@ -71,7 +54,29 @@ public class ProductRepository : IRepository<ProductDto>
 
         _dataContext.Products.Remove(existingProduct);
         
-        return new ProductDto(existingProduct.Name, existingProduct.Description, 
-            existingProduct.Price, existingProduct.Image, existingProduct.Category);
+        return ConvertToDto(existingProduct);
+    }
+
+    private ProductDto ConvertToDto(Product product)
+    {
+        return new ProductDto(
+            product.Name,
+            product.Description,
+            product.Price,
+            product.Image,
+            product.Category
+        );
+    }
+
+    private Product ConvertToModel(ProductDto productDto)
+    {
+        return new Product()
+        {
+            Name = productDto.Name,
+            Description = productDto.Description,
+            Price = productDto.Price,
+            Image = productDto.Image,
+            Category = productDto.Category
+        };
     }
 }

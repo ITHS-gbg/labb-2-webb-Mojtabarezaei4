@@ -1,3 +1,3 @@
 ﻿namespace BonsaiTreeShop.Shared.DTOs;
 
-public record ProductDto(string Name, string Description, int Price, string Image, string Category);
+public record ProductDto(string Name, string Description, decimal Price, string Image, string Category);

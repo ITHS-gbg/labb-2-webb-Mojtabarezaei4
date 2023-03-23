@@ -21,8 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\OrderCommands\" />
     <Folder Include="Commands\UserCommands\" />
     <Folder Include="Handlers\Deletes\UserDelete\" />
+    <Folder Include="Handlers\Gets\OrderGets\" />
+    <Folder Include="Handlers\Posts\OrderPost\" />
+    <Folder Include="Queries\OrderQueries\" />
     <Folder Include="Queries\UserQueries\" />
   </ItemGroup>
 

@@ -12,8 +12,9 @@ public class Product
 
     public string Description { get; set; } = string.Empty;
 
+    [DataType("decimal(10,2)")]
     [Required]
-    public int Price { get; set; }
+    public decimal Price { get; set; }
 
     public string Image { get; set; } = string.Empty;
 

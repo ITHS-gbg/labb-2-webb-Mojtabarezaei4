@@ -7,23 +7,21 @@ namespace BonsaiTreeShop.DataAccess.Repositories;
 public class UnitOfWork: IUnitOfWork, IDisposable
 {
     private readonly DataContext _dataContext;
-    private readonly UserDbContext _userContext;
     public IRepository<ProductDto> ProductRepository { get; private set; }
     public IRepository<UserDto> UserRepository { get; private set; }
-
-    public UnitOfWork(DataContext dataContext, UserDbContext userContext)
+    public IRepository<OrderDto> OrderRepository { get; private set; }
+    public UnitOfWork(DataContext dataContext)
     {
         _dataContext = dataContext;
-        _userContext = userContext;
 
         ProductRepository = new ProductRepository(_dataContext);
-        UserRepository = new UserRepository(_userContext);
+        UserRepository = new UserRepository(_dataContext);
+        OrderRepository = new OrderRepository(_dataContext);
     }
 
     public async Task CompleteAsync()
     {
         await _dataContext.SaveChangesAsync();
-        await _userContext.SaveChangesAsync();
     }
 
     public void Dispose()

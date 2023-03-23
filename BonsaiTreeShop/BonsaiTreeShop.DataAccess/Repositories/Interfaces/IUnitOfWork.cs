@@ -7,6 +7,7 @@ public interface IUnitOfWork
 {
     IRepository<ProductDto> ProductRepository { get; }
     IRepository<UserDto> UserRepository { get; }
+    IRepository<OrderDto> OrderRepository { get;}
 
     Task CompleteAsync();
 }

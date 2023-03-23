@@ -8,9 +8,9 @@ namespace BonsaiTreeShop.DataAccess.Repositories;
 
 public class UserRepository: IRepository<UserDto>
 {
-    private readonly UserDbContext _userDbContext;
+    private readonly DataContext _userDbContext;
 
-    public UserRepository(UserDbContext userDbContext)
+    public UserRepository(DataContext userDbContext)
     {
         _userDbContext = userDbContext;
     }
@@ -38,8 +38,6 @@ public class UserRepository: IRepository<UserDto>
 
     public async Task<UserDto?> AddAsync(UserDto userDto)
     {
-
-
         var newUser = new User()
         {
             FirstName = userDto.FirstName,
