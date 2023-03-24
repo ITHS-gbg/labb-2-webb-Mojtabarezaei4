@@ -13,10 +13,6 @@ public static class Converter
             CreatedAt = orderDto.CreatedAt,
             UserId = orderDto.UserId,
             OrderDetails = orderDto.OrderDetails.Select(ConvertToOrderDetailModel).ToList(),
-            //OrderDetails = orderDto.OrderDetails
-            //    .Select(od => new ProductDto(od.ProductDto.Name, od.ProductDto.Description, od.ProductDto.Price,
-            //    od.ProductDto.Image, od.ProductDto.Category))
-            //    .ToList(),
         };
 
         return order;
@@ -26,7 +22,7 @@ public static class Converter
     {
         var orderDetails = new OrderDetail()
         {
-            Product = ConvertToProductModel(orderDetailsDto.ProductDto),
+            ProductId = orderDetailsDto.ProductId,
             Quantity = orderDetailsDto.Quantity
         };
 
@@ -51,28 +47,28 @@ public static class Converter
     {
         var orderDto = new OrderDto(order.ShipAddress,
             order.CreatedAt,
-            //new OrderDetailsDto(
-            //    order.OrderDetails.Select(od => 
-            //        new ProductDto(od.Product.Name, od.Product.Description,
-            //            od.Product.Price, od.Product.Image, od.Product.Category)), 
-            //    order.OrderDetails.Sum(od => od.Quantity)), 
             order.OrderDetails.Select(ConvertToOrderDetailsDto).ToList(),
             order.UserId);
-        
+
         return orderDto;
     }
 
     public static OrderDetailsDto ConvertToOrderDetailsDto(OrderDetail orderDetail)
     {
-        var orderDetailsDto = new OrderDetailsDto(ConvertToProductDto(orderDetail.Product), orderDetail.Quantity);
+        var orderDetailsDto = new OrderDetailsDto(orderDetail.ProductId, orderDetail.Quantity);
 
         return orderDetailsDto;
     }
 
     public static ProductDto ConvertToProductDto(Product product)
     {
-        var productDto = new ProductDto(product.Name, product.Description, product.Price, product.Image,
-             product.Category);
+        var productDto = new ProductDto(
+            product.Id,
+            product.Name,
+            product.Description,
+            product.Price,
+            product.Image,
+            product.Category);
 
         return productDto;
     }
@@ -86,6 +82,7 @@ public static class Converter
             user.PhoneNumber,
             user.Address
         );
+
         return userDto;
     }
 
@@ -97,7 +94,7 @@ public static class Converter
             LastName = userDto.LastName,
             Email = userDto.Email,
             PhoneNumber = userDto.PhoneNumber,
-            Address = userDto.Address
+            Address = userDto.Address ?? ""
         };
 
         return newUser;

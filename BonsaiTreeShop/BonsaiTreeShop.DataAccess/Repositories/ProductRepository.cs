@@ -31,8 +31,11 @@ public class ProductRepository : IRepository<ProductDto>
 
     public async Task<ProductDto?> AddAsync(ProductDto productDto)
     {
-        await _dataContext.Products.AddAsync(Converter.ConvertToProductModel(productDto));
-        return productDto;
+        var result = await _dataContext.Products
+            .AddAsync(Converter.ConvertToProductModel(productDto));
+        return new ProductDto(result.Entity.Id, result.Entity.Name, 
+            result.Entity.Description, result.Entity.Price, 
+            result.Entity.Image, result.Entity.Category);
     }
 
     public async Task<ProductDto?> UpdateAsync(ProductDto product, object id)
@@ -61,6 +64,7 @@ public class ProductRepository : IRepository<ProductDto>
     private ProductDto ConvertToDto(Product product)
     {
         return new ProductDto(
+            product.Id,
             product.Name,
             product.Description,
             product.Price,

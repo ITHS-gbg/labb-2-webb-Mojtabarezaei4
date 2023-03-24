@@ -19,14 +19,14 @@ public class OrderRepository: IRepository<OrderDto>
 
     public async Task<IEnumerable<OrderDto>> GetAllAsync()
     {
-        var orders = await _dataContext.Orders.ToListAsync();
+        var orders = await _dataContext.Orders.Include("OrderDetails").ToListAsync();
         var orderDtos = orders.Select(Converter.ConvertToOrderDto).ToList();
         return orderDtos;
     }
 
     public async Task<OrderDto?> GetByIdAsync(object id)
     {
-        var order = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == (Guid)id);
+        var order = await _dataContext.Orders.Include("OrderDetails").FirstOrDefaultAsync(o => o.Id == (Guid)id);
         if (order is null) return null;
         return Converter.ConvertToOrderDto(order);
     }

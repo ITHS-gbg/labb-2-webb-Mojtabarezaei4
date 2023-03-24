@@ -28,7 +28,7 @@ public class AddOrderHandler : IRequestHandler<AddOrderCommand, ServiceResponse<
                 Message = "Something went wrong!"
             };
         }
-
+        
         await _unitOfWork.CompleteAsync();
 
         return new ServiceResponse<OrderDto?>()

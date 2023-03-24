@@ -1,8 +1,11 @@
-﻿namespace BonsaiTreeShop.DataAccess.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BonsaiTreeShop.DataAccess.Model;
 
 public class Stock
 {
-    public Guid Id { get; set; }
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
     public Product Product { get; set; } = null!;
     public int Quantity { get; set; }
     public bool Status { get; set; }

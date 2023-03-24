@@ -1,7 +1,9 @@
 ﻿using System.Security.Claims;
 using BonsaiTreeShop.DataAccess.Commands.OrderCommands;
+using BonsaiTreeShop.DataAccess.Queries.ProductQueries;
 using BonsaiTreeShop.Server.Requests.Posts.OrderPost;
 using BonsaiTreeShop.Shared;
+using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
 namespace BonsaiTreeShop.Server.Handlers.Posts.OrderPost;
@@ -16,15 +18,23 @@ public class PostOrderHandler : IRequestHandler<PostOrderRequest, IResult>
     }
     public async Task<IResult> Handle(PostOrderRequest request, CancellationToken cancellationToken)
     {
-        var orderDto = request.OrderDto;
 
         var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (userId is null) return Results.Forbid();
 
-        //orderDto.UserId = userId;
+        var orderDetails = new List<OrderDetailsDto>();
 
-        var response = await _mediator.Send(new AddOrderCommand(orderDto));
+        foreach (var orderDetailDto in request.OrderDto.OrderDetails)
+        {
+            var product = await _mediator.Send(
+            new GetProductByIdQuery(orderDetailDto.ProductId));
 
+            orderDetails.Add( new OrderDetailsDto(product.Data!.Id, orderDetailDto.Quantity));
+        }
+
+        var orderDto = new OrderDto(request.OrderDto.ShipAddress, DateTime.UtcNow, orderDetails, userId);
+
+        var response = await _mediator.Send(new AddOrderCommand(new OrderDto(request.OrderDto.ShipAddress, DateTime.UtcNow, orderDetails, userId)));
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);
     }
 }
