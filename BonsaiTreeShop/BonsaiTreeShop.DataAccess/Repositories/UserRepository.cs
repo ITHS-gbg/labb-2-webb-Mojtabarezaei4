@@ -1,6 +1,7 @@
 ﻿using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
+using BonsaiTreeShop.DataAccess.Services;
 using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,40 +16,27 @@ public class UserRepository: IRepository<UserDto>
         _userDbContext = userDbContext;
     }
 
-
     public async Task<IEnumerable<UserDto>> GetAllAsync()
     {
-        var users = await _userDbContext.Users.Select(u  => new UserDto(
-            u.FirstName,
-            u.LastName,
-            u.Email!,
-            u.PhoneNumber,
-            u.Address
-        )).ToListAsync();
-        return users;
+        var users = await _userDbContext.Users.ToListAsync();
+        var userDtos = users.Select(Converter.ConvertToUserDto);
+
+        return userDtos;
     }
 
     public async Task<UserDto?> GetByIdAsync(object id)
     {
         var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == (string)id);
         return user is not null ?
-            new UserDto(user.FirstName,user.LastName,user.Email!,user.PhoneNumber,user.Address)
+            Converter.ConvertToUserDto(user)
             : null;
     }
 
     public async Task<UserDto?> AddAsync(UserDto userDto)
     {
-        var newUser = new User()
-        {
-            FirstName = userDto.FirstName,
-            LastName = userDto.LastName,
-            Email = userDto.Email,
-            PhoneNumber = userDto.PhoneNumber,
-            Address = userDto.Address
-        };
+        var newUser = Converter.ConvertToUser(userDto);
         await _userDbContext.Users.AddAsync(newUser);
         return userDto;
-
     }
 
     public async Task<UserDto?> UpdateAsync(UserDto userDto, object id)
@@ -69,12 +57,7 @@ public class UserRepository: IRepository<UserDto>
         var existingUser = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == (string)id);
         if (existingUser is null) return null;
         _userDbContext.Users.Remove(existingUser);
-        return new UserDto(
-            existingUser.FirstName, 
-            existingUser.LastName,
-            existingUser.Email!,
-            existingUser.PhoneNumber,
-            existingUser.Address
-            );
+
+        return Converter.ConvertToUserDto(existingUser);
     }
 }

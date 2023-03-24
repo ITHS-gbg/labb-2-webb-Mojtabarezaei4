@@ -18,10 +18,12 @@ public class GetAllOrderHandler: IRequestHandler<GetAllOrderQuery, ServiceRespon
     public async Task<ServiceResponse<IEnumerable<OrderDto>>> Handle(GetAllOrderQuery request,
         CancellationToken cancellationToken)
     {
+        var orders = await _unitOfWork.OrderRepository.GetAllAsync();
+
         return new ServiceResponse<IEnumerable<OrderDto>>()
         {
             Success = true,
-            Data = await _unitOfWork.OrderRepository.GetAllAsync(),
+            Data = orders.Where(o => o.UserId == request.UserId),
             Message = "Succeed"
         };
     }

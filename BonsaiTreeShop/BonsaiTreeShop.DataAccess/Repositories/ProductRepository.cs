@@ -1,6 +1,7 @@
 ﻿using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
+using BonsaiTreeShop.DataAccess.Services;
 using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,18 +20,18 @@ public class ProductRepository : IRepository<ProductDto>
     {
         var products = await _dataContext.Products.ToListAsync();
 
-        return products.Select(ConvertToDto).ToList();
+        return products.Select(Converter.ConvertToProductDto).ToList();
     }
 
     public async Task<ProductDto?> GetByIdAsync(object id)
     {
         var product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == (Guid)id);
-        return product is not null ? ConvertToDto(product) : null;
+        return product is not null ? Converter.ConvertToProductDto(product) : null;
     }
 
     public async Task<ProductDto?> AddAsync(ProductDto productDto)
     {
-        await _dataContext.Products.AddAsync(ConvertToModel(productDto));
+        await _dataContext.Products.AddAsync(Converter.ConvertToProductModel(productDto));
         return productDto;
     }
 
@@ -54,7 +55,7 @@ public class ProductRepository : IRepository<ProductDto>
 
         _dataContext.Products.Remove(existingProduct);
         
-        return ConvertToDto(existingProduct);
+        return Converter.ConvertToProductDto(existingProduct);
     }
 
     private ProductDto ConvertToDto(Product product)

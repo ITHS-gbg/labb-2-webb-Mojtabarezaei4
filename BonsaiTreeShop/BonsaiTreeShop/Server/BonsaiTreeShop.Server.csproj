@@ -36,11 +36,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Extensions\OrderEndpoints\" />
     <Folder Include="Extensions\UserEndpoints\" />
     <Folder Include="Handlers\Deletes\UserDelete\" />
+    <Folder Include="Handlers\Gets\OrderGets\" />
     <Folder Include="Handlers\Gets\UserGets\" />
+    <Folder Include="Handlers\Posts\OrderPost\" />
     <Folder Include="Requests\Deletes\UserDelete\" />
     <Folder Include="Requests\Gets\UserGets\" />
+    <Folder Include="Requests\Posts\OrderPost\" />
   </ItemGroup>
 
 </Project>

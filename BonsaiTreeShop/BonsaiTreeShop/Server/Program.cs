@@ -9,6 +9,7 @@ using BonsaiTreeShop.Server.Extensions.UserEndpoints;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using BonsaiTreeShop.Server.Extensions.OrderEndpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +78,7 @@ app.UseAuthorization();
 // Mapping endPoints 
 app.MapProductEndpoints();
 app.MapUserEndpoints();
+app.MapOrderEndpoints();
 
 app.MapRazorPages();
 app.MapControllers();
