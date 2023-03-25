@@ -10,6 +10,6 @@ public static class UserEndpoints
         app.MediateGet<GetAllUserRequest>("/users");
         app.MediateGet<GetUserByIdRequest>("/users/{id}");
         
-        app.MediateDelete<DeleteUserByIdRequest>("/users/{id}");
+        app.MediateDelete<DeleteUserByIdRequest>("/deleteUser/{id}");
     }
 }

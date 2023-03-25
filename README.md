@@ -1,86 +1,96 @@
-
     I denna uppgift skall vi implementera databashantering och REST API för en e-handel.
 
 ---
+
+## [api specification](./details/apispecification.md)
+
+---
+
 ## Grundläggande krav
 
-- [ ] Det ska gå att skapa nya proukter som lagras i en databas(SQL-Server eller MongoDB)
+- [x] Det ska gå att skapa nya proukter som lagras i en databas(SQL-Server eller MongoDB)
 
-- [ ] Det ska gå att ändra och ta bort produkter i databasen
+- [x] Det ska gå att ändra och ta bort produkter i databasen
 
-- [ ] Det ska gå att markera att produkter utgått ur sortimentet 
+- [ ] Det ska gå att markera att produkter utgått ur sortimentet
 
-- [ ] Det ska gå att hämta alla produkter
+- [x] Det ska gå att hämta alla produkter
 
-- [ ] Det ska gå att söka efter en produkt på produktens namn eller produktnummer
+- [x] Det ska gå att söka efter en produkt på produktens namn eller produktnummer
 
-- [ ] Kunder ska kunna registrera sig och uppgifterna skall lagras i databasen.
+- [x] Kunder ska kunna registrera sig och uppgifterna skall lagras i databasen.
 
-- [ ] Kunder ska kunna uppdatera sina uppgifter
+- [x] Kunder ska kunna uppdatera sina uppgifter
 
-- [ ] Det ska gå att lista alla Kunder
+- [x] Det ska gå att lista alla Kunder
 
 - [ ] Det ska gå söka efter kunder på e-post adress
 
-- [ ] När en kund anmäler sig/köper placerar en order måste vi kunna spåra vilken/vilka produkter som kunden har köpt
+- [x] När en kund anmäler sig/köper placerar en order måste vi kunna spåra vilken/vilka produkter som kunden har köpt
 
 ---
+
 ## Detaljkrav
 
 ### För en produkt skall följande uppgifter lagras i databasen
 
-* Produktnummer
-* Produktnamn
-* Produktbeskrivning
-* Pris
-* Produktkategori (Mejeri, elektronik, husgeråd eller liknande)
-* Status (om den finns i eller har utgått ur sortimentet)
+- Produktnummer
+- Produktnamn
+- Produktbeskrivning
+- Pris
+- Produktkategori (Mejeri, elektronik, husgeråd eller liknande)
+- Status (om den finns i eller har utgått ur sortimentet)
 
 ---
 
 ### För en deltagare skall följande information lagras
 
-* Förnamn
-* Efternamn
-* E-post
-* Mobilnummer
-* Adressuppgifter
+- Förnamn
+- Efternamn
+- E-post
+- Mobilnummer
+- Adressuppgifter
 
 ---
+
 ## Designkrav
 
 REST Api-lösningen skall utvecklas enligt objektorienterade principer och använda följa Single Responsibility Principle.
 
-* All databaskommunikation skall också ske med hjälp av Repository Pattern.
+- All databaskommunikation skall också ske med hjälp av Repository Pattern.
 
 ---
 
 ## Användargränssnitt
+
 Här lämnas det fritt, antingen kan vi använda JavaScript, React, Vue.js, Blazor eller ASP.NET MVC för att implementera en applikation för att kommunicera med REST Api-lösningen. Klientapplikationen skall kunna presentera och hantera produkter och deltagare enligt de grundläggande kraven ovan.
 
 ---
 
 ## Bedömning
+
 ### Godkänt(G)
 
-- [ ] En API-specifikation ska skrivas och bifogas i repositoryt.
+- [x] En API-specifikation ska skrivas och bifogas i repositoryt.
 
-- [ ] Denna specifikation ska tydligt redogöra för alla endpoints och deras funktion.
+- [x] Denna specifikation ska tydligt redogöra för alla endpoints och deras funktion.
 
-- [ ] För att få godkänt skall alla delar för produkthantering vara implementerade. 
+- [ ] För att få godkänt skall alla delar för produkthantering vara implementerade.
 
-- [ ] Kravet på att följa Single Responsibility Principle skall vara implementerat.
+- [x] Kravet på att följa Single Responsibility Principle skall vara implementerat.
 
-- [ ] Repository Pattern skall vara implementerat och användas för all databaskommunikation.
+- [x] Repository Pattern skall vara implementerat och användas för all databaskommunikation.
 
 - [ ] En klientapplikation skall nyttja REST Api:et och uppfylla designkraven.
 
 ---
+
 ### Väl godkänt(VG)
-- [ ] För väl godkänt skall alla krav på G nivån vara uppfyllda. Förutom detta skall REST Api:et även implementera Unit of Work mönstret.
+
+- [x] För väl godkänt skall alla krav på G nivån vara uppfyllda. Förutom detta skall REST Api:et även implementera Unit of Work mönstret.
 
 - [ ] Klientapplikationen skall dessutom kunna hantera deltagare och presentation av vilka kurser som deltagaren har valt att anmäla sig till eller köpt.
 
-- [ ] Man ska dessutom nyttja rollbaseerad autentisering med JWT. Antingen egenimplementerat, OAuth eller med Identity Server.
+- [x] Man ska dessutom nyttja rollbaseerad autentisering med JWT. Antingen egenimplementerat, OAuth eller med Identity Server.
 
 - [ ] Om en Admin är inloggad ska man få tillgång till en admin-sida där man kan se kunder och ordrar samt ändra i sortimentet.

@@ -1,17 +1,16 @@
 # API Specification
 
-|         Path         | RequestMethod | RequestParams |  RequestBody  |    ResponseCodes     |   ResponseBody   |
-| :------------------: | :-----------: | :-----------: | :-----------: | :------------------: | :--------------: |
-|      /products       |      GET      |       -       |       -       |          OK          | list of products |
-|        /users        |      GET      |       -       |       -       |          OK          |  list of users   |
-|    /orderHistory     |      GET      |    userId     |       -       |     OK, NotFound     |  list of order   |
-|     /newProduct      |     POST      |  User(admin)  |    Product    | OK, NotAuth, BadReq  |        -         |
-|       /signup        |     POST      |       -       |     User      |      OK, BadReq      |        -         |
-|        /login        |     POST      |       -       |     User      |      OK, BadReq      |        -         |
-|        /users        |     POST      |   userEmail   |       -       |     OK,NotFound      |       User       |
-|      /products       |     POST      |   productId   |       -       |     OK, NotFound     |     Product      |
-|    /updateProduct    |     PUTH      |   productId   |    Product    |      OK, BadReq      |        -         |
-|     /updateUser      |     PUTH      |    userId     |     User      |      OK, BadReq      |        -         |
-|    /deleteProduct    |    DELETE     |   productId   |       -       |     OK, NotFound     |        -         |
-|     /deleteUser      |    DELETE     |    userId     |       -       |     OK,NotFound      |        -         |
-| /changeProductStatus |     PATCH     |   productId   | productStatus | OK, BadReq, NotFound |        -         |
+|         Path         | RequestMethod | RequestParams |  RequestBody  |        ResponseCodes        |   ResponseBody   |
+| :------------------: | :-----------: | :-----------: | :-----------: | :-------------------------: | :--------------: |
+|      /products       |      GET      |       -       |       -       |        OK, NoContent        | list of products |
+|    /products/{id}    |      GET      |   productId   |       -       |        OK, NotFound         | specific product |
+|       /orders        |      GET      |       -       |       -       |  OK, NoContent, BadRequest  |  list of orders  |
+|     /orders/{id}     |      GET      |    orderId    |       -       |        OK, NotFound         |  specific order  |
+|        /users        |      GET      |       -       |       -       | OK, NoContent, Unauthorized |  list of users   |
+|     /users/{id}      |      GET      |    userId     |       -       | OK, NotFound, Unauthorized  |  specific user   |
+|     /addProduct      |     POST      |       -       |    Product    |  OK, BadReq, Unauthorized   |    ProductDto    |
+|      /addOrder       |     POST      |       -       |     Order     |     OK, BadReq, Forbid      |     OrderDto     |
+| /updateProduct/{id}  |     PUTH      |   productId   |    Product    |  OK, BadReq, Unauthorized   |    ProductDto    |
+| /deleteProduct/{id}  |    DELETE     |   productId   |       -       | OK, NotFound, Unauthorized  |    ProductDto    |
+|   /deleteUser/{id}   |    DELETE     |    userId     |       -       | OK, NotFound, Unauthorized  |     UserDto      |
+| /changeProductStatus |     PATCH     |   productId   | productStatus |    OK, BadReq, NotFound     |        -         |

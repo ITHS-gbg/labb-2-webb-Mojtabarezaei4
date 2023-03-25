@@ -19,8 +19,6 @@ public class GetOrderByIdHandler : IRequestHandler<GetOrderByIdRequest, IResult>
 
         var response = await _mediator.Send(new GetOrderByIdQuery(request.Id));
 
-        //if (request.HttpContext.User.GetSubjectId() != response.Data.UserId) ;
-
         return response.Success ? Results.Ok(response) : Results.NotFound(response);
     }
 }
