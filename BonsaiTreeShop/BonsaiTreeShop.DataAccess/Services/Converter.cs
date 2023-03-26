@@ -37,7 +37,8 @@ public static class Converter
             Category = productDto.Category,
             Description = productDto.Description,
             Image = productDto.Image,
-            Price = productDto.Price
+            Price = productDto.Price,
+            IsInStock = productDto.IsInStock,
         };
 
         return product;
@@ -45,7 +46,8 @@ public static class Converter
 
     public static OrderDto ConvertToOrderDto(Order order)
     {
-        var orderDto = new OrderDto(order.ShipAddress,
+        var orderDto = new OrderDto(
+            order.ShipAddress,
             order.CreatedAt,
             order.OrderDetails.Select(ConvertToOrderDetailsDto).ToList(),
             order.UserId);
@@ -68,7 +70,8 @@ public static class Converter
             product.Description,
             product.Price,
             product.Image,
-            product.Category);
+            product.Category, 
+            product.IsInStock);
 
         return productDto;
     }
@@ -99,4 +102,5 @@ public static class Converter
 
         return newUser;
     }
+    
 }

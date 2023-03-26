@@ -35,7 +35,7 @@ public class ProductRepository : IRepository<ProductDto>
             .AddAsync(Converter.ConvertToProductModel(productDto));
         return new ProductDto(result.Entity.Id, result.Entity.Name, 
             result.Entity.Description, result.Entity.Price, 
-            result.Entity.Image, result.Entity.Category);
+            result.Entity.Image, result.Entity.Category, result.Entity.IsInStock);
     }
 
     public async Task<ProductDto?> UpdateAsync(ProductDto product, object id)
@@ -47,6 +47,7 @@ public class ProductRepository : IRepository<ProductDto>
         existingProduct.Description = product.Description;
         existingProduct.Image = product.Image;
         existingProduct.Price = product.Price;
+        existingProduct.IsInStock = product.IsInStock;
         return product;
     }
 
@@ -59,29 +60,5 @@ public class ProductRepository : IRepository<ProductDto>
         _dataContext.Products.Remove(existingProduct);
         
         return Converter.ConvertToProductDto(existingProduct);
-    }
-
-    private ProductDto ConvertToDto(Product product)
-    {
-        return new ProductDto(
-            product.Id,
-            product.Name,
-            product.Description,
-            product.Price,
-            product.Image,
-            product.Category
-        );
-    }
-
-    private Product ConvertToModel(ProductDto productDto)
-    {
-        return new Product()
-        {
-            Name = productDto.Name,
-            Description = productDto.Description,
-            Price = productDto.Price,
-            Image = productDto.Image,
-            Category = productDto.Category
-        };
     }
 }

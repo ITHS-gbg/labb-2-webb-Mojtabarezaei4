@@ -21,4 +21,6 @@ public class Product
     [Required]
     public string Category { get; set; } = null!;
 
+    public bool IsInStock { get; set; }
+
 }

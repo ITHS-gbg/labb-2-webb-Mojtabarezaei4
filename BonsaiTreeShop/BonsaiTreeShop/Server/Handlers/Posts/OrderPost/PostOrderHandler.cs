@@ -2,7 +2,6 @@
 using BonsaiTreeShop.DataAccess.Commands.OrderCommands;
 using BonsaiTreeShop.DataAccess.Queries.ProductQueries;
 using BonsaiTreeShop.Server.Requests.Posts.OrderPost;
-using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 
@@ -34,7 +33,7 @@ public class PostOrderHandler : IRequestHandler<PostOrderRequest, IResult>
 
         var orderDto = new OrderDto(request.OrderDto.ShipAddress, DateTime.UtcNow, orderDetails, userId);
 
-        var response = await _mediator.Send(new AddOrderCommand(new OrderDto(request.OrderDto.ShipAddress, DateTime.UtcNow, orderDetails, userId)));
+        var response = await _mediator.Send(new AddOrderCommand(orderDto));
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);
     }
 }

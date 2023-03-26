@@ -22,14 +22,13 @@ namespace BonsaiTreeShop.DataAccess.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-            builder.Entity<User>(e =>
-            {
-                e.HasMany<Order>().WithOne().HasForeignKey(o => o.UserId).IsRequired();
-            });
+            //builder.Entity<User>(e =>
+            //{
+            //    e.HasMany<Order>().WithOne().HasForeignKey(o => o.UserId).IsRequired();
+            //});
         }
         
         public DbSet<Product> Products { get; set; }
-        public DbSet<Stock> Stock { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
     }

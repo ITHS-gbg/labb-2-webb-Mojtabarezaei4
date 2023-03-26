@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BonsaiTreeShop.Server.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230324201434_AddedDataAnnotations")]
-    partial class AddedDataAnnotations
+    [Migration("20230326105131_NoStockTable")]
+    partial class NoStockTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,14 +42,9 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -94,6 +89,9 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsInStock")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -105,28 +103,6 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.Stock", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.User", b =>
@@ -378,13 +354,13 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0a48568b-9711-4f0b-b860-58121476c355",
+                            Id = "f7a3f6cf-93d8-4a88-8474-91feae4e9f1e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "016ed3cf-8125-476a-9ab1-a2ddb4e51f2d",
+                            Id = "21237790-9d1c-4b7c-a724-7b2201013611",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -503,14 +479,10 @@ namespace BonsaiTreeShop.Server.Data.Migrations
             modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.Order", b =>
                 {
                     b.HasOne("BonsaiTreeShop.DataAccess.Model.User", null)
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BonsaiTreeShop.DataAccess.Model.User", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.OrderDetail", b =>
@@ -518,17 +490,6 @@ namespace BonsaiTreeShop.Server.Data.Migrations
                     b.HasOne("BonsaiTreeShop.DataAccess.Model.Order", null)
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId");
-                });
-
-            modelBuilder.Entity("BonsaiTreeShop.DataAccess.Model.Stock", b =>
-                {
-                    b.HasOne("BonsaiTreeShop.DataAccess.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
