@@ -1,7 +1,35 @@
 ﻿@page "/receipt"
 
-<h1>Succeed</h1>
+<h1 class="text-center text-success mt-5">Succeed</h1>
 
-@code {
+@*<div class="d-flex align-items-center">
+    <div class="col-md-5 col-lg-4 order-md-last m-auto">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Your Receipt</span>
+        </h4>
+        <ul class="list-group mb-3">
+            @if (Order.OrderDetails.Any())
+            {
+                <h2 class="mt-5 mb-5"> Your Cart Is Empty</h2>
+            }
+            else
+            {
 
-}
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                        <h6 class="my-0"><span class="badge bg-primary rounded-pill">Ship Address: </span></h6>
+                            <div class="" style="width: 7rem; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                <small class="text-body-secondary">
+                                @Order.ShipAddress
+                                </small>
+                            </div>
+                        </div>
+                    </li>
+                @*<li class="list-group-item d-flex justify-content-between mt-5">
+                    <span>Total (SEK)</span>
+                    <strong>@Order.OrderDetails.Sum(od => od.Quantity)</strong>
+                </li>
+            }
+        </ul>
+    </div>
+</div>*@

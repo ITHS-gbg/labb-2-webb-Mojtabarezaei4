@@ -1,4 +1,5 @@
 ﻿using BonsaiTreeShop.DataAccess.Model;
+using BonsaiTreeShop.Server.Data.Migrations;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +23,8 @@ namespace BonsaiTreeShop.DataAccess.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-            //builder.Entity<User>(e =>
-            //{
-            //    e.HasMany<Order>().WithOne().HasForeignKey(o => o.UserId).IsRequired();
-            //});
+            builder.ApplyConfiguration(new ProductConfiguration());
+            
         }
         
         public DbSet<Product> Products { get; set; }

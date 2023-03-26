@@ -4,7 +4,7 @@ namespace BonsaiTreeShop.DataAccess.Model;
 
 public class Product
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [StringLength(30)]
     [Required]
