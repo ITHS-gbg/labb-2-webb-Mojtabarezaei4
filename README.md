@@ -12,7 +12,7 @@
 
 - [x] Det ska gå att ändra och ta bort produkter i databasen
 
-- [ ] Det ska gå att markera att produkter utgått ur sortimentet
+- [x] Det ska gå att markera att produkter utgått ur sortimentet
 
 - [x] Det ska gå att hämta alla produkter
 
