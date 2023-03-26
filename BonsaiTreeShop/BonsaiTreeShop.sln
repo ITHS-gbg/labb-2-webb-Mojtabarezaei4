@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonsaiTreeShop.Client", "Bo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonsaiTreeShop.Shared", "BonsaiTreeShop\Shared\BonsaiTreeShop.Shared.csproj", "{11F59064-7C44-4456-BCE7-AA5BCEDF2B4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BonsaiTreeShop.DataAccess", "BonsaiTreeShop.DataAccess\BonsaiTreeShop.DataAccess.csproj", "{D12AA028-D2E0-4D52-9338-E108AA1CF99A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonsaiTreeShop.DataAccess", "BonsaiTreeShop.DataAccess\BonsaiTreeShop.DataAccess.csproj", "{D12AA028-D2E0-4D52-9338-E108AA1CF99A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

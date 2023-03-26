@@ -1,0 +1,90 @@
+﻿@inject HttpClient _httpClient
+@inject IAddToCartService _addToCartService
+@inject NavigationManager _navigationManager
+@inject ISessionStorageService _sessionStorageService
+
+@implements IDisposable
+
+
+<div class="d-flex align-items-center">
+        <div class="col-md-5 col-lg-4 order-md-last m-auto">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Your cart</span>
+                <span class="badge bg-primary rounded-pill">@TotalItemsInCart</span>
+            </h4>
+            <ul class="list-group mb-3">
+                @if (TotalItemsInCart == 0)
+                {
+                    <h2 class="mt-5 mb-5"> Your Cart Is Empty</h2>
+                }
+                else
+                {
+                    <Virtualize Items="CartItems.ToArray()" Context="cartItem">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0"><span class="badge bg-primary rounded-pill">@cartItem.Value</span> @cartItem.Key.Name</h6>
+                                <div class="" style="width: 7rem; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                    <small class="text-body-secondary">
+                                        @cartItem.Key.Description
+                                    </small>
+                                </div>
+                            </div>
+                            <span class="text-body-secondary">@cartItem.Key.Price kr/st</span>
+                        </li>
+                    </Virtualize>
+                    <li class="list-group-item d-flex justify-content-between mt-5">
+                        <span>Total (SEK)</span>
+                        <strong>@TotalPrice</strong>
+                    </li>
+
+                    <EditForm Model="_shipAddress" OnSubmit="PlaceTheOrder">
+
+                    <div class="row g-3 mt-5">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="firstName" value="User.FirstName" required="">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="lastName" value="User.LastName" required="">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="User.Email">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <InputTextArea type="text" class="form-control" id="address" placeholder="1234 Main St" required="" @bind-Value="_shipAddress"></InputTextArea>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="address"  placeholder="1234 Main St" required="" value="User.PhoneNumber" >
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+                    </div>
+
+                <Button @onclick="PlaceTheOrder" class="btn btn-primary mt-3">Place the Order</Button>
+
+                </EditForm>
+                }
+            </ul>
+        </div>
+    </div>

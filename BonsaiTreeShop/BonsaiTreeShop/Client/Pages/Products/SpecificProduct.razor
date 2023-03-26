@@ -1,0 +1,25 @@
+﻿@page "/products/{id}"
+@inject IHttpClientFactory _httpClient;
+@inject IAddToCartService _addToCartService
+
+@if (Product is null)
+{
+    <h1 class="text-center mt-3">No Product</h1>
+}
+else
+{
+    <h1 class="text-center mt-3">@Product.Name</h1>
+    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <img src="@Product.Image" alt="@Product.Name" />
+    <div class="my-3 p-3">
+        <h2 class="display-5">@Product.Name</h2>
+        <h4>Category: @Product.Category.Replace(" ", ", ")</h4>
+        <p class="lead">@Product.Description</p>
+    </div>
+    <div>
+        <h3 class="text-success">@Product.Price</h3>
+            <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClick(Product)">Buy</button>
+    </div>
+</div>
+}
+

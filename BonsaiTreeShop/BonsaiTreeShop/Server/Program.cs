@@ -25,7 +25,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<User>(options => 
         options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>();
+    .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<User, DataContext>(options =>
@@ -33,6 +33,7 @@ builder.Services.AddIdentityServer()
         options.IdentityResources["openid"].UserClaims.Add("role");
         options.ApiResources.Single().UserClaims.Add("role");
     });
+
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 builder.Services.AddAuthentication()
@@ -45,7 +46,7 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
 
-builder.Services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireClaim("role")));
+//builder.Services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireClaim("role")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
