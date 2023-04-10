@@ -1,3 +1,10 @@
 ﻿namespace BonsaiTreeShop.Shared.DTOs;
 
-public record UserDto(string FirstName, string LastName, string Email, string? PhoneNumber, string? Address);
+public class UserDto
+{
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+    public string Email { get; init; }
+    public string? PhoneNumber { get; init; }
+    public string? Address { get; init; }
+}

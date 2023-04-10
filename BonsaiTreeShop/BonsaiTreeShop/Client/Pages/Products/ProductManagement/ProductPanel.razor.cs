@@ -1,11 +1,11 @@
-﻿using System.Net.Http.Json;
+﻿using BonsaiTreeShop.Shared.DTOs;
 using BonsaiTreeShop.Shared;
-using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 
-namespace BonsaiTreeShop.Client.Pages.Products;
+namespace BonsaiTreeShop.Client.Pages.Products.ProductManagement;
 
-partial class Product: ComponentBase
+public partial class ProductPanel: ComponentBase
 {
     public string SearchInput { get; set; } = string.Empty;
     private List<ProductDto> _products = new();
@@ -22,5 +22,4 @@ partial class Product: ComponentBase
 
         await base.OnInitializedAsync();
     }
-
 }

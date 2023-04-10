@@ -46,45 +46,54 @@ public static class Converter
 
     public static OrderDto ConvertToOrderDto(Order order)
     {
-        var orderDto = new OrderDto(
-            order.ShipAddress,
-            order.CreatedAt,
-            order.OrderDetails.Select(ConvertToOrderDetailsDto).ToList(),
-            order.UserId);
+        var orderDto = new OrderDto()
+        {
+            ShipAddress = order.ShipAddress,
+            CreatedAt = order.CreatedAt,
+            OrderDetails = order.OrderDetails.Select(ConvertToOrderDetailsDto).ToList(),
+            UserId = order.UserId
+        };
 
         return orderDto;
     }
 
     public static OrderDetailsDto ConvertToOrderDetailsDto(OrderDetail orderDetail)
     {
-        var orderDetailsDto = new OrderDetailsDto(orderDetail.ProductId, orderDetail.Quantity);
+        var orderDetailsDto = new OrderDetailsDto()
+        {
+            ProductId = orderDetail.ProductId, 
+            Quantity = orderDetail.Quantity
+        };
 
         return orderDetailsDto;
     }
 
     public static ProductDto ConvertToProductDto(Product product)
     {
-        var productDto = new ProductDto(
-            product.Id,
-            product.Name,
-            product.Description,
-            product.Price,
-            product.Image,
-            product.Category, 
-            product.IsInStock);
+        var productDto = new ProductDto()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            Image = product.Image,
+            Category = product.Category,
+            IsInStock = product.IsInStock
+        };
 
         return productDto;
     }
 
     public static UserDto ConvertToUserDto(User user)
     {
-        var userDto = new UserDto(
-            user.FirstName,
-            user.LastName,
-            user.Email!,
-            user.PhoneNumber,
-            user.Address
-        );
+        var userDto = new UserDto()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email!,
+            PhoneNumber = user.PhoneNumber,
+            Address = user.Address
+        };
 
         return userDto;
     }

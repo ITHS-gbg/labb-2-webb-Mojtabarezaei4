@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.3.0" />
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
@@ -48,7 +50,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Watch Include="..\Client\**\*.razor"/>
+		<Watch Include="..\Client\**\*.razor" />
 	</ItemGroup>
 
 </Project>

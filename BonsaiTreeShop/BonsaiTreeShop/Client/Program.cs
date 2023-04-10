@@ -24,7 +24,7 @@ builder.Services.
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BonsaiTreeShop.ServerAPI"));
 builder.Services.AddScoped<IAddToCartService, AddToCartService>();
-builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddApiAuthorization();
+builder.Services.AddBlazoredSessionStorage();
 
 await builder.Build().RunAsync();

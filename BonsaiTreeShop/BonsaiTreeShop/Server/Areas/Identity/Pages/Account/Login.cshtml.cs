@@ -128,7 +128,7 @@ namespace BonsaiTreeShop.Server.Areas.Identity.Pages.Account
                     var claims = new Claim[]
                     {
                         new Claim("amr", "pwd"),
-                        new Claim("role", "Admin")
+                        new Claim("role", _signInManager.Context.User.IsInRole("Admin") ? "Admin" : "Customer")
                     };
 
                     await _signInManager.SignInWithClaimsAsync(user, Input.RememberMe, claims);

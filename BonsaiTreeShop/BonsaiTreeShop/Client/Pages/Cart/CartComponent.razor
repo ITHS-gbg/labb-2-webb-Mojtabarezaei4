@@ -42,7 +42,7 @@
                     <div class="row g-3 mt-5">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="firstName" value="User.FirstName" required="">
+                            <input type="text" class="form-control" id="firstName" value="@User.FirstName" required="">
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
@@ -50,7 +50,7 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="lastName" value="User.LastName" required="">
+                            <input type="text" class="form-control" id="lastName" value="@User.LastName" required="">
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
@@ -58,7 +58,7 @@
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="User.Email">
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@User.Email">
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
                             </div>
@@ -74,7 +74,7 @@
 
                         <div class="col-12">
                             <label for="address" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="address"  placeholder="1234 Main St" required="" value="User.PhoneNumber" >
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="" value="@User.PhoneNumber">
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>

@@ -1,0 +1,45 @@
+﻿@page "/addNewProduct"
+@attribute [Authorize(Roles = "Admin")]
+
+@inject HttpClient _httpClient
+@inject NavigationManager _navigationManager
+
+<PageTitle>Add New Product</PageTitle>
+<h1 class="text-center mt-3">Add New Product</h1>
+<div class="row g-5 d-flex justify-content-center mt-3">
+    <div class="col-md-7 col-lg-8 w-50">
+        <EditForm Model="NewProduct" OnValidSubmit="AddProduct" class="row g-4">
+            <div class="col-12 input-group mb-3">
+                <span class="input-group-text">Name</span>
+                <InputText @bind-Value="NewProduct.Name" class="form-control"></InputText>
+            </div>
+            <div class="col-12 input-group mb-3">
+                <span class="input-group-text">Category</span>
+                <InputText @bind-Value="NewProduct.Category" class="form-control"></InputText>
+            </div>
+            <div class="col-12 input-group mb-3">
+                <span class="input-group-text">Image</span>
+                <InputText @bind-Value="NewProduct.Image" class="form-control"></InputText>
+            </div>
+            <div class="col-12 input-group mb-3">
+                <span class="input-group-text">Price</span>
+                <InputNumber @bind-Value="NewProduct.Price" class="form-control"></InputNumber>
+                <span class="input-group-text">.00</span>
+
+            </div>
+            <div class="col-12 input-group mb-3">
+                <span class="input-group-text">Is In Stock</span>
+                <div class="input-group-text bg-light">
+                    <InputCheckbox @bind-Value="NewProduct.IsInStock" class="form-check-label mt-0"></InputCheckbox>
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea @bind-Value="NewProduct.Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></InputTextArea>
+            </div>
+            <div class="w-50">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </EditForm>
+    </div>
+</div>

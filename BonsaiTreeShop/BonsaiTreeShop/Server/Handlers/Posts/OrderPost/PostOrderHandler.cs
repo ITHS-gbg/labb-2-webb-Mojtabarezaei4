@@ -28,10 +28,20 @@ public class PostOrderHandler : IRequestHandler<PostOrderRequest, IResult>
             var product = await _mediator.Send(
             new GetProductByIdQuery(orderDetailDto.ProductId));
 
-            orderDetails.Add( new OrderDetailsDto(product.Data!.Id, orderDetailDto.Quantity));
+            orderDetails.Add( new OrderDetailsDto()
+            {
+                ProductId = product.Data!.Id, 
+                Quantity = orderDetailDto.Quantity
+            });
         }
 
-        var orderDto = new OrderDto(request.OrderDto.ShipAddress, DateTime.UtcNow, orderDetails, userId);
+        var orderDto = new OrderDto()
+        {
+            ShipAddress = request.OrderDto.ShipAddress, 
+            CreatedAt = DateTime.UtcNow, 
+            OrderDetails = orderDetails, 
+            UserId = userId
+        };
 
         var response = await _mediator.Send(new AddOrderCommand(orderDto));
         return response.Success ? Results.Ok(response) : Results.BadRequest(response);

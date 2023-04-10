@@ -33,9 +33,16 @@ public class ProductRepository : IRepository<ProductDto>
     {
         var result = await _dataContext.Products
             .AddAsync(Converter.ConvertToProductModel(productDto));
-        return new ProductDto(result.Entity.Id, result.Entity.Name, 
-            result.Entity.Description, result.Entity.Price, 
-            result.Entity.Image, result.Entity.Category, result.Entity.IsInStock);
+        return new ProductDto()
+        {
+            Id = result.Entity.Id, 
+            Name = result.Entity.Name,
+            Description = result.Entity.Description, 
+            Price = result.Entity.Price,
+            Image = result.Entity.Image, 
+            Category = result.Entity.Category, 
+            IsInStock = result.Entity.IsInStock
+        };
     }
 
     public async Task<ProductDto?> UpdateAsync(ProductDto product, object id)

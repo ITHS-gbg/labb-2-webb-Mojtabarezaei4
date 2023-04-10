@@ -132,13 +132,14 @@ namespace BonsaiTreeShop.Server.Areas.Identity.Pages.Account.Manage
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 
-                var userDto = new UserDto(
-                    user.FirstName,
-                    user.LastName,
-                    user.Email!,
-                    Input.PhoneNumber,
-                    Input.Address
-                    );
+                var userDto = new UserDto()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email!,
+                    PhoneNumber = Input.PhoneNumber,
+                    Address = Input.Address
+                };
 
                 await _mediator.Send(new UpdateUserCommand(userDto, user.Id));
 

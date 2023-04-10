@@ -1,4 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
+using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 using BonsaiTreeShop.DataAccess;
 using BonsaiTreeShop.DataAccess.Data;
 using BonsaiTreeShop.DataAccess.Model;

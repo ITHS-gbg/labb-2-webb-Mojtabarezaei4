@@ -1,6 +1,4 @@
 ﻿using System.Net.Http.Json;
-using Blazored.SessionStorage;
-using BonsaiTreeShop.Client.Shared;
 using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -13,8 +11,7 @@ namespace BonsaiTreeShop.Client.Pages.Cart
         private int TotalItemsInCart = 0;
         private decimal TotalPrice = 0;
 
-        private UserDto User = new("", "", "", "", "");
-        private OrderDto _orderDto;
+        private UserDto User = new();
         private List<OrderDetailsDto> _orderDetailsDto;
         private string _shipAddress = string.Empty;
 
@@ -24,18 +21,15 @@ namespace BonsaiTreeShop.Client.Pages.Cart
             CartItems = _addToCartService.Products;
             TotalItemsInCart = CartItems.Count;
 
-            //var profile = await _sessionStorageService.GetItemAsStringAsync("profile");
-            //string sub;
-            //foreach (var item in profile)
-            //{
-            //    if (item.Equals("sub"))
-            //    {
-            //        sub = item;
-            //    }
-            //}
+            var sub = await _sessionStorageService.GetItemAsStringAsync("sub");
+
+            //if (sub is null) _navigationManager.NavigateTo("/login");
 
             //var response = await _httpClient.GetFromJsonAsync<ServiceResponse<UserDto>>("users/{sub}");
 
+            //if (response is null) _navigationManager.NavigateTo("/login");
+
+            //User = response!.Data;
 
             if (CartItems.Any())
             {
@@ -54,7 +48,11 @@ namespace BonsaiTreeShop.Client.Pages.Cart
 
             if (CartItems.Any())
             {
-                _orderDetailsDto = CartItems.Select( ci => new OrderDetailsDto(ci.Key.Id, ci.Value)).ToList();
+                _orderDetailsDto = CartItems.Select( ci => new OrderDetailsDto()
+                {
+                   ProductId = ci.Key.Id, 
+                   Quantity = ci.Value
+                }).ToList();
             }
 
             if (_orderDetailsDto.Any())
