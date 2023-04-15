@@ -11,9 +11,9 @@ public static class OrderEndpoints
 {
     public static void MapOrderEndpoints(this WebApplication app)
     {
-        app.MediateGet<GetAllOrderRequest>("/orders");
-        app.MediateGet<GetOrderByIdRequest>("/orders/{id}");
+        app.MediateGet<GetAllOrderRequest>("/api/orders");
+        app.MediateGet<GetOrderByIdRequest>("/api/orders/{id}");
 
-        app.MediatePost<PostOrderRequest>("/addOrder");
+        app.MediatePost<PostOrderRequest>("/api/addOrder");
     }
 }

@@ -15,7 +15,7 @@ public partial class EditProduct: ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await _httpClient.GetFromJsonAsync<ServiceResponse<ProductDto?>>($"products/{Id}");
+        var response = await _httpClient.GetFromJsonAsync<ServiceResponse<ProductDto?>>($"api/products/{Id}");
 
         Product = response.Data;
 

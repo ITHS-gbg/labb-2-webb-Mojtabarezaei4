@@ -1,0 +1,37 @@
+﻿@page "/orders"
+
+@inject HttpClient _httpClient
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <h1 class="text-center mt-5 mb-5">Orders</h1>
+        @if(_orders.Any()){
+            <table class="table table-sm align-middle mb-0 bg-white mt-3">
+                <thead class="bg-light">
+                <tr>
+                    <th scope="col">Date Of Order</th>
+                    <th scope="col">Time Of Order</th>
+                    <th scope="col">Shipped To</th>
+                    <th scope="col">Option</th>
+                </tr>
+                </thead>
+                <Virtualize Items="_orders.ToArray()" Context="order">
+                    <tbody>
+                    <tr>
+                        <td>@order.CreatedAt.ToShortDateString()</td>
+                        <td>@order.CreatedAt.ToShortTimeString()</td>
+                        <td>@order.ShipAddress</td>
+                        <td>
+                            <a href="orders/@order.Id" class="btn btn-primary">Order Details</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Virtualize>
+            </table>
+        }
+        else
+        {
+            <h2 class="text-center mt-5 mb-5">No Orders</h2>
+        }
+    </Authorized>
+</AuthorizeView>

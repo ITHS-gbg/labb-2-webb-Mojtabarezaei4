@@ -9,14 +9,14 @@ public static class ProductEndpoints
 {
     public static void MapProductEndpoints(this WebApplication app)
     {
-        app.MediateGet<GetAllProductRequest>("/products");
-        app.MediateGet<GetProductByIdRequest>("/products/{id}");
+        app.MediateGet<GetAllProductRequest>("/api/products");
+        app.MediateGet<GetProductByIdRequest>("/api/products/{id}");
 
-        app.MediatePost<PostProductRequest>("/addProduct");
+        app.MediatePost<PostProductRequest>("/api/addProduct");
 
-        app.MediatePut<UpdateProductRequest>("/updateProduct/{id}");
+        app.MediatePut<UpdateProductRequest>("/api/updateProduct/{id}");
 
-        app.MediateDelete<DeleteProductRequest>("/deleteProduct/{id}");
+        app.MediateDelete<DeleteProductRequest>("/api/deleteProduct/{id}");
 
     }
 }

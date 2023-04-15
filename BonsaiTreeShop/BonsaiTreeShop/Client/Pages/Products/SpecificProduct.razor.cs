@@ -15,7 +15,7 @@ namespace BonsaiTreeShop.Client.Pages.Products
         protected override async Task OnInitializedAsync()
         {
             var response = await _httpClient.
-                CreateClient("public").GetFromJsonAsync<ServiceResponse<ProductDto?>>($"products/{Id}");
+                CreateClient("public").GetFromJsonAsync<ServiceResponse<ProductDto?>>($"api/products/{Id}");
             
             Product = response.Data;
 

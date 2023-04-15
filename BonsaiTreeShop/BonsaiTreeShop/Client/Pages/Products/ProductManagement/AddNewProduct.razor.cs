@@ -10,7 +10,7 @@ public partial class AddNewProduct: ComponentBase
 
     private async Task AddProduct()
     {
-        var resonse = await _httpClient.PostAsJsonAsync("addProduct", NewProduct);
+        var resonse = await _httpClient.PostAsJsonAsync("api/addProduct", NewProduct);
 
         _navigationManager.NavigateTo("/productManagement");
     }

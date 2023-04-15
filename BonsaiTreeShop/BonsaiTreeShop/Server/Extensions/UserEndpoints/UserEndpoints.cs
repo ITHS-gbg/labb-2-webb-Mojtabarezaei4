@@ -7,9 +7,9 @@ public static class UserEndpoints
 {
     public static void MapUserEndpoints(this WebApplication app)
     {
-        app.MediateGet<GetAllUserRequest>("/users");
-        app.MediateGet<GetUserByIdRequest>("/users/{id}");
+        app.MediateGet<GetAllUserRequest>("/api/users");
+        app.MediateGet<GetUserByIdRequest>("/api/users/{id}");
         
-        app.MediateDelete<DeleteUserByIdRequest>("/deleteUser/{id}");
+        app.MediateDelete<DeleteUserByIdRequest>("/api/deleteUser/{id}");
     }
 }

@@ -48,6 +48,7 @@ public static class Converter
     {
         var orderDto = new OrderDto()
         {
+            Id = order.Id,
             ShipAddress = order.ShipAddress,
             CreatedAt = order.CreatedAt,
             OrderDetails = order.OrderDetails.Select(ConvertToOrderDetailsDto).ToList(),
@@ -88,6 +89,7 @@ public static class Converter
     {
         var userDto = new UserDto()
         {
+            Id = Guid.Parse(user.Id),
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email!,

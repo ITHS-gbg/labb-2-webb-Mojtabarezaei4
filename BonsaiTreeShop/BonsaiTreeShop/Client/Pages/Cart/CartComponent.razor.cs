@@ -65,7 +65,7 @@ namespace BonsaiTreeShop.Client.Pages.Cart
                 try
                 {
                     var response = await _httpClient
-                        .PostAsJsonAsync("addOrder", order);
+                        .PostAsJsonAsync("api/addOrder", order);
                     _navigationManager.NavigateTo("receipt");
 
                 }

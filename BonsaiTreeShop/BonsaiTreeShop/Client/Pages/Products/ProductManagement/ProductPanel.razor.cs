@@ -16,7 +16,7 @@ public partial class ProductPanel: ComponentBase
     {
         var response = await _httpClient.
             CreateClient("public").
-            GetFromJsonAsync<ServiceResponse<List<ProductDto>>>("products");
+            GetFromJsonAsync<ServiceResponse<List<ProductDto>>>("api/products");
 
         _products = response!.Data;
 
