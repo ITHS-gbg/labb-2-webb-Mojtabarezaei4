@@ -4,8 +4,8 @@
 
 <AuthorizeView Roles="Admin">
     <Authorized>
-        <h1 class="text-center mt-5 mb-5">Orders</h1>
-        @if(_orders.Any()){
+        <h1 class="text-center mt-5 mb-5">@_userName's Orders</h1>
+        @if(_orders is not null && _orders.Any()){
             <table class="table table-sm align-middle mb-0 bg-white mt-3">
                 <thead class="bg-light">
                 <tr>

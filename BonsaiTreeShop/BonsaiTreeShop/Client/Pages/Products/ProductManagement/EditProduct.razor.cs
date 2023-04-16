@@ -27,7 +27,7 @@ public partial class EditProduct: ComponentBase
         var formIsValid = formContext.Validate();
         if (formIsValid is false) return;
 
-        var response = await _httpClient.PutAsJsonAsync($"updateProduct/{Product.Id}", Product);
+        var response = await _httpClient.PutAsJsonAsync($"api/updateProduct/{Product.Id}", Product);
 
         if (response.IsSuccessStatusCode)
         {
@@ -41,7 +41,7 @@ public partial class EditProduct: ComponentBase
         var formIsValid = formContext.Validate();
         if (formIsValid is false) return;
 
-        var response = await _httpClient.DeleteAsync($"deleteProduct/{Product.Id}");
+        var response = await _httpClient.DeleteAsync($"api/deleteProduct/{Product.Id}");
 
         if (response.IsSuccessStatusCode)
         {

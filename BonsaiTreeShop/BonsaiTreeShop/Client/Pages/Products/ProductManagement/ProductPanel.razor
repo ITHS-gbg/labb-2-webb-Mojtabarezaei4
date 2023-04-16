@@ -32,7 +32,7 @@
             <Virtualize Items="FilteredProducts.ToArray()" Context="product">
                 <tbody>
                 <tr>
-                    <td class="text-truncate" style="width: 15em">@product.Id</td>
+                    <td class="text-truncate" style="width: 15em">@product.Id.ToString().Replace("-", "")</td>
                     <td>@product.Name</td>
                     <td>@product.Category.Replace(" ", ", ")</td>
                     <td><p class="card-text text-truncate" style="width: 15em">@product.Description</p></td>
