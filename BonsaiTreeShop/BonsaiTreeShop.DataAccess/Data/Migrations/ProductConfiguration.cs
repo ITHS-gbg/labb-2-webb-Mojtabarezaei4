@@ -1,5 +1,4 @@
 ﻿using BonsaiTreeShop.DataAccess.Model;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 

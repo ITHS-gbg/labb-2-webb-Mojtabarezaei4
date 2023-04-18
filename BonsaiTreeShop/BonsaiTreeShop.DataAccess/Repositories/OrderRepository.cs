@@ -1,8 +1,6 @@
 ﻿using BonsaiTreeShop.DataAccess.Data;
-using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.DataAccess.Services;
-using BonsaiTreeShop.Shared;
 using BonsaiTreeShop.Shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 

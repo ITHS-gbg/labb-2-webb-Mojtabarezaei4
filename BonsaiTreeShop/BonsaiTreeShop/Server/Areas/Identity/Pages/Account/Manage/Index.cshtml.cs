@@ -2,14 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using BonsaiTreeShop.DataAccess.Commands.UserCommands;
 using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Queries.UserQueries;
-using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.Shared.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

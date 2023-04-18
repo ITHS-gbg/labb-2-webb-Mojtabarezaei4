@@ -1,5 +1,4 @@
-﻿using BonsaiTreeShop.DataAccess.Model;
-using BonsaiTreeShop.Shared.DTOs;
+﻿using BonsaiTreeShop.Shared.DTOs;
 
 namespace BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 

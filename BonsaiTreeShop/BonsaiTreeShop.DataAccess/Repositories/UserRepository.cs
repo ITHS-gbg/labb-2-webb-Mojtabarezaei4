@@ -1,5 +1,4 @@
 ﻿using BonsaiTreeShop.DataAccess.Data;
-using BonsaiTreeShop.DataAccess.Model;
 using BonsaiTreeShop.DataAccess.Repositories.Interfaces;
 using BonsaiTreeShop.DataAccess.Services;
 using BonsaiTreeShop.Shared.DTOs;
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BonsaiTreeShop.DataAccess.Repositories;
 
-public class UserRepository: IRepository<UserDto>
+public class UserRepository : IRepository<UserDto>
 {
     private readonly DataContext _userDbContext;
 
@@ -26,9 +25,17 @@ public class UserRepository: IRepository<UserDto>
 
     public async Task<UserDto?> GetByIdAsync(object id)
     {
-        var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == (string)id);
-        return user is not null ?
-            Converter.ConvertToUserDto(user)
+        var castedId = (string)id;
+        if (Guid.TryParse(castedId, out _))
+        {
+            var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == (string)castedId);
+            return user is not null ?
+                Converter.ConvertToUserDto(user)
+                : null;
+        }
+        var userByEmail = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Email == (string)castedId);
+        return userByEmail is not null ?
+            Converter.ConvertToUserDto(userByEmail)
             : null;
     }
 

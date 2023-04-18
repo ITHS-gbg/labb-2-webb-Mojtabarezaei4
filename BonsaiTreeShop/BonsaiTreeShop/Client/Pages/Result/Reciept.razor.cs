@@ -1,5 +1,4 @@
-﻿using BonsaiTreeShop.Shared.DTOs;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace BonsaiTreeShop.Client.Pages.Result
 {

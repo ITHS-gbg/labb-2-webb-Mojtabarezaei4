@@ -1,8 +1,9 @@
 ﻿@page "/orders"
 
 @inject HttpClient _httpClient
+@inject AuthenticationStateProvider _authenticationStateProvider
 
-<AuthorizeView Roles="Admin">
+<AuthorizeView Roles="Admin, Customer">
     <Authorized>
         <h1 class="text-center mt-5 mb-5">@_userName's Orders</h1>
         @if(_orders is not null && _orders.Any()){
