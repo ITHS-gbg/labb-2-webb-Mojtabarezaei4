@@ -7,82 +7,119 @@ namespace BonsaiTreeShop.Client.Pages.Cart
 {
     public partial class CartComponent : ComponentBase
     {
-        private Dictionary<ProductDto, int> CartItems = new();
-        private int TotalItemsInCart = 0;
-        private decimal TotalPrice = 0;
-
-        private UserDto User = new();
-        private List<OrderDetailsDto> _orderDetailsDto;
+        private List<OrderDetailsDto> _cartItems = new();
+        private int _totalItemsInCart = 0;
+        private decimal _totalPrice = 0;
+        private List<ProductDto> _productItems = new();
+        private UserDto _user = new();
         private string _shipAddress = string.Empty;
-
-        protected override async Task OnInitializedAsync()
+        private string _userIdOrEmail = string.Empty;
+        
+        protected override async Task OnParametersSetAsync()
         {
             _addToCartService.AddToCart += StateHasChanged;
-            CartItems = _addToCartService.Products;
-            TotalItemsInCart = CartItems.Count;
+            _cartItems = _addToCartService.CartItems;
+            _totalItemsInCart = _cartItems.Count;
 
-            var sub = await _sessionStorageService.GetItemAsStringAsync("sub");
+            var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
 
-            //if (sub is null) _navigationManager.NavigateTo("/login");
+            _userIdOrEmail = authenticationState!.User.Identity!.Name!;
 
-            //var response = await _httpClient.GetFromJsonAsync<ServiceResponse<UserDto>>("users/{sub}");
+            var userResponse = await _httpClient.GetFromJsonAsync<ServiceResponse<UserDto>>($"api/users/{_userIdOrEmail}");
+            _user = userResponse!.Data;
 
-            //if (response is null) _navigationManager.NavigateTo("/login");
-
-            //User = response!.Data;
-
-            if (CartItems.Any())
+            var cartFromLocalStorage = await _localStorageService.GetItemAsync<IEnumerable<OrderDetailsDto>>("cart");
+            if (cartFromLocalStorage is not null)
             {
-                TotalItemsInCart = CartItems.Sum(p => p.Value);
-                TotalPrice = CartItems.Sum(p => p.Key.Price * p.Value);
+                var fromLocalStorage = cartFromLocalStorage.ToList();
+                _cartItems = fromLocalStorage.ToList();
             }
-            await base.OnInitializedAsync();
+
+            if (_cartItems.Any())
+            {
+                _totalItemsInCart = _cartItems.Count();
+                foreach (var item in _cartItems)
+                {
+                    var product = await AddToProductListAsync(item.ProductId);
+                    _totalPrice += item.Quantity * product.Data.Price;
+                }
+            }
         }
 
-        public void Dispose()
+        private async Task<ServiceResponse<ProductDto>> AddToProductListAsync(Guid id)
         {
-            _addToCartService.AddToCart -= StateHasChanged;
+            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<ProductDto>>($"api/products/{id}");
+            if (!response!.Success) return response;
+            _productItems.Add(response.Data);
+            return response;
         }
+
+        private async Task Increase(ProductDto productDto)
+        {
+            await _adjustCartService.IncreaseQuantityAsync(productDto);
+            _totalPrice += productDto.Price;
+            _cartItems.First(ci => ci.ProductId == productDto.Id).Quantity++;
+        }
+
+        private async Task Decrease(ProductDto productDto)
+        {
+            if (_cartItems.First(ci => ci.ProductId == productDto.Id).Quantity == 1)
+            {
+                return;
+                await Delete(productDto);
+            }
+            if (_cartItems.First(ci => ci.ProductId == productDto.Id).Quantity > 1)
+            {
+                await _adjustCartService.DecreaseQuantityAsync(productDto);
+                _cartItems.First(ci => ci.ProductId == productDto.Id).Quantity--;
+                _totalPrice -= productDto.Price;
+            }
+            
+        }
+        private async Task Delete(ProductDto productDto)
+        {
+            await _adjustCartService.DecreaseQuantityAsync(productDto);
+            var orderDetailsDto = _cartItems.First(ci => ci.ProductId == productDto.Id);
+            _cartItems.Remove(orderDetailsDto);
+            _totalPrice -= productDto.Price;
+            _totalItemsInCart--;
+        }
+
         private async Task PlaceTheOrder()
         {
-
-            if (CartItems.Any())
+            if (string.IsNullOrEmpty(_shipAddress)) return;
+            if (_cartItems.Any())
             {
-                _orderDetailsDto = CartItems.Select( ci => new OrderDetailsDto()
+                var order = new OrderDto()
                 {
-                   ProductId = ci.Key.Id, 
-                   Quantity = ci.Value
-                }).ToList();
-            }
-
-            if (_orderDetailsDto.Any())
-            {
-                var order = new OrderDtoShort()
-                {
-                    OrderDetails = _orderDetailsDto,
+                    OrderDetails = _cartItems,
                     ShipAddress = _shipAddress
                 };
                 try
                 {
                     var response = await _httpClient
                         .PostAsJsonAsync("api/addOrder", order);
-                    _navigationManager.NavigateTo("receipt");
+
+                    _cartItems.Clear();
+                    _totalItemsInCart = 0;
+                    _totalPrice = 0;
+                    _cartItems.Clear();
+                    
+                    var orderId = await response.Content.ReadFromJsonAsync<ServiceResponse<OrderDto>>();
+                    Console.WriteLine(orderId.Data);
+                    await _localStorageService.ClearAsync();
+                    _navigationManager.NavigateTo($"orders/{orderId!.Data.Id}");
 
                 }
                 catch (Exception e)
                 {
                     _navigationManager.NavigateTo("failed");
                 }
-
             }
-
         }
-        private class OrderDtoShort
+        public void Dispose()
         {
-            public string ShipAddress { get; set; }
-            public IEnumerable<OrderDetailsDto> OrderDetails { get; set; }
+            _addToCartService.AddToCart -= StateHasChanged;
         }
     }
-
-    
 }

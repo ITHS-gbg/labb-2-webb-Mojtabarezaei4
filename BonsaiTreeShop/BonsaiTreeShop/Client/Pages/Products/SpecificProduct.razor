@@ -22,7 +22,7 @@ else
         </div>
         <div>
             <h3 class="text-success">@Product.Price</h3>
-            <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClick(Product)">Buy</button>
+            <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClickAsync(Product)">Buy</button>
         </div>
     </div>
 }

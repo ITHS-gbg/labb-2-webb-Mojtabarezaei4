@@ -2,4 +2,14 @@
 
 <PageTitle>Cart</PageTitle>
 
-<CartComponent />
+<AuthorizeView>
+    <Authorized>
+        <div class="m-auto" style="width: 70%;">
+            <CartComponent/>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <h2>You need to login!</h2>
+        <a href="authentication/login">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>

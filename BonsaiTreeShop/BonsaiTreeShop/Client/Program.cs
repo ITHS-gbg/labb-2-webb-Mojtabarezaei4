@@ -1,4 +1,4 @@
-using Blazored.SessionStorage;
+using Blazored.LocalStorage;
 using BonsaiTreeShop.Client;
 using BonsaiTreeShop.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -24,7 +24,9 @@ builder.Services.
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BonsaiTreeShop.ServerAPI"));
 builder.Services.AddScoped<IAddToCartService, AddToCartService>();
+builder.Services.AddScoped<IAdjustCartService, AdjustCartService>();
 builder.Services.AddApiAuthorization();
-builder.Services.AddBlazoredSessionStorage();
+
+builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();

@@ -21,7 +21,7 @@
                         <p>@product.Category.Replace(" ", ", ")</p>
                         <p class="card-text text-truncate">@product.Description</p>
                         <a href="/products/@product.Id" class="btn btn-primary">Read</a>
-                        <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClick(product)">Buy</button>
+                        <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClickAsync(product)">Buy</button>
                     </div>
                 </div>
             </li>

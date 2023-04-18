@@ -31,8 +31,8 @@ public class OrderRepository: IRepository<OrderDto>
 
     public async Task<OrderDto?> AddAsync(OrderDto orderDto)
     {
-        await _dataContext.Orders.AddAsync(Converter.ConvertToOrderModel(orderDto));
-        return orderDto;
+        var order = await _dataContext.Orders.AddAsync(Converter.ConvertToOrderModel(orderDto));
+        return Converter.ConvertToOrderDto(order.Entity);
     }
 
     public async Task<OrderDto?> UpdateAsync(OrderDto orderDto, object id)

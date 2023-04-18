@@ -1,23 +1,36 @@
-﻿using BonsaiTreeShop.Shared.DTOs;
+﻿using Blazored.LocalStorage;
+using BonsaiTreeShop.Shared.DTOs;
 
 namespace BonsaiTreeShop.Client.Services;
 
 public class AddToCartService: IAddToCartService
 {
+    private readonly ILocalStorageService _localStorageService;
     public event Action? AddToCart;
 
-    public Dictionary<ProductDto, int> Products { get; set; } = new();
+    public List<OrderDetailsDto> CartItems { get; set; } = new();
 
-    public void BuyOnClick(ProductDto product)
+    public AddToCartService(ILocalStorageService localStorageService)
     {
-        if (Products.ContainsKey(product))
+        _localStorageService = localStorageService;
+    }
+    public async Task BuyOnClickAsync(ProductDto product)
+    {
+        if (CartItems.Any(i => i.ProductId == product.Id))
         {
-            Products[product] ++;
+            var item = CartItems.First(i => i.ProductId == product.Id);
+            item.Quantity++;
         }
         else
         {
-            Products.Add(product,1);
+            CartItems.Add(new ()
+            {
+                ProductId = product.Id,
+                Quantity = 1
+            });
         }
+
+        await _localStorageService.SetItemAsync("cart", CartItems);
         AddToCart?.Invoke();
     }
 }
