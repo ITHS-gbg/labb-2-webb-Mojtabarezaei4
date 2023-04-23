@@ -1,6 +1,6 @@
 ﻿@page "/products/{id}"
 @inject IHttpClientFactory _httpClient;
-@inject IAddToCartService _addToCartService
+@inject ICartService _addToCartService
 
 
 
@@ -13,16 +13,34 @@ else
 {
     <PageTitle>@Product.Name</PageTitle>
     <h1 class="text-center mt-3">@Product.Name</h1>
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden mb-5">
-        <img src="@Product.Image" alt="@Product.Name" />
-        <div class="my-3 p-3">
-            <h2 class="display-5">@Product.Name</h2>
-            <h4>Category: @Product.Category.Replace(" ", ", ")</h4>
-            <p class="lead">@Product.Description</p>
-        </div>
-        <div>
-            <h3 class="text-success">@Product.Price</h3>
-            <button class="btn btn-primary" @onclick="() => _addToCartService.BuyOnClickAsync(Product)">Buy</button>
+    <div class="container mt-5 mb-5">
+        <div class="card" style="border: none;">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <div class="d-flex flex-column justify-content-center">
+                        <div class="d-flex justify-content-center">
+                            <img src="@Product.Image" alt="@Product.Name Image" width="450">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 w-50">
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>@Product.Name</h3>
+                        </div>
+                        <div class="mt-2 content">
+                            <p>@Product.Description</p>
+                        </div>
+                        <h3>@Product.Price kr</h3>
+                        <div class="d-flex flex-row align-items-center">
+                            <span>@Product.Category.Replace(" ", ", ")</span>
+                        </div>
+                        <div class="buttons d-flex flex-row mt-5 gap-3">
+                            <button class="btn btn-outline-dark" @onclick="() => _addToCartService.BuyOnClickAsync(Product)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }

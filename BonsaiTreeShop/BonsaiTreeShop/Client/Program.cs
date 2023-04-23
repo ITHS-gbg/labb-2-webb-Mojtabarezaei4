@@ -9,7 +9,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddHttpClient("BonsaiTreeShop.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+builder.Services.AddHttpClient("BonsaiTreeShop.ServerAPI", 
+        client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.
@@ -23,8 +24,7 @@ builder.Services.
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BonsaiTreeShop.ServerAPI"));
-builder.Services.AddScoped<IAddToCartService, AddToCartService>();
-builder.Services.AddScoped<IAdjustCartService, AdjustCartService>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddApiAuthorization();
 
 builder.Services.AddBlazoredLocalStorage();

@@ -1,6 +1,5 @@
 ﻿@inject HttpClient _httpClient
-@inject IAddToCartService _addToCartService
-@inject IAdjustCartService _adjustCartService
+@inject ICartService _cartService
 @inject NavigationManager _navigationManager
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject ILocalStorageService _localStorageService
@@ -8,85 +7,75 @@
 @implements IDisposable
 
 
-<div class="d-flex align-items-center justify-content-center">
-    <div class="col-md-5 col-lg-4 order-md-last w-75">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">@_totalItemsInCart</span>
-        </h4>
-        <ul class="list-group mb-3">
-            @if (_totalItemsInCart == 0)
-            {
-                <h2 class="mt-5 mb-5"> Your Cart Is Empty</h2>
-            }
-            else
-            {
-                <Virtualize Items="_productItems.ToArray()" Context="cartItem">
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div class="d-flex">
-                            <div class="">
-                                <div class="d-flex">
-                                    <Button @onclick="async () => await Decrease(cartItem)"
-                                            class="btn btn-danger rounded-circle p-0 lh-1" style="height: 24px; width: 24px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash" viewBox="0 0 17.5 17.5">
-                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                        </svg>
-                                    </Button>
-                                    <h6 class="my-0 ms-2 me-2">
-                                        <span class="badge bg-primary rounded-pill" style="height: 24px; width: 24px;">
-                                            <p class="fs-6">@_cartItems.FirstOrDefault(i => i.ProductId == cartItem.Id)!.Quantity</p>
-                                        </span>
-                                    </h6>
-                                    <Button @onclick="async () => await Increase(cartItem)"
-                                            class="btn btn-success rounded-circle p-0 lh-1" style="height: 24px; width: 24px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 17.5 17.5">
-                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                        </svg>
-                                    </Button>
-                                </div>
+@if (_cartItems is null || !_cartItems.Any())
+{
+    <h2 class="mt-5 mb-5"> Your Cart Is Empty</h2>
+}
+else
+{
+    <div class="card">
+        <div class="row">
+            <div class="col-md-8 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                        <div class="col align-self-center text-end text-muted">@_cartItems.Sum(ci => ci.Quantity) items</div>
+                    </div>
+                </div>
+                <Virtualize Items="_cartItems.ToArray()" Context="cartItem">
+                    <div class="row border-top">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" src="@cartItem.Image" alt="@cartItem.Image image"></div>
+                            <div class="col">
+                                <div class="row text-muted">@cartItem.ProductCategory.Replace(" ", ", ")</div>
+                                <div class="row">@cartItem.ProductName</div>
                             </div>
-                            <h6 class="ms-2 me-2">@cartItem.Name</h6>
-                            <div class="col" style="width: 16rem; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-                                <small class="text-body-secondary">
-                                    @cartItem.Description
-                                </small>
+                            <div class="col">
+                                <a class="a-link" @onclick="() => _cartService.DecreaseQuantityAsync(cartItem)">-</a>
+                                <span>@cartItem.Quantity</span>
+                                <a class="a-link" @onclick="() => _cartService.IncreaseQuantityAsync(cartItem)">+</a>
+                            </div>
+                            <div class="col text-end">
+                                @cartItem.Price &#107;&#114;
+                                <a class="a-link" @onclick="() => _cartService.DeleteFromCartAsync(cartItem)">&#10005;</a>
                             </div>
                         </div>
-                        <span class="text-body-secondary">@cartItem.Price kr/st</span>
-                    </li>
+                    </div>
                 </Virtualize>
-                <li class="list-group-item d-flex justify-content-between mt-5">
-                    <span>Total (SEK)</span>
-                    <strong>@_totalPrice</strong>
-                </li>
+                <div class="back-to-shop">
+                    <a class="a-link" href="/products">
+                        &leftarrow;
+                        <span class="text-muted">Back to shop</span>
+                    </a>
+                </div>
+            </div>
 
+            <div class="col-md-4 summary">
+                <div><h5><b>Summary</b></h5></div>
+                <hr>
                 <EditForm Model="_shipAddress" OnSubmit="PlaceTheOrder">
-
-                    <div class="row g-3 mt-5">
+                    <div class="row g-1 mt-1">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="firstName" value="@_user.FirstName" required="">
+                            <input type="text" class="form-control" id="firstName" value="@_user.FirstName" required="" disabled>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
-
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="lastName" value="@_user.LastName" required="">
+                            <input type="text" class="form-control" id="lastName" value="@_user.LastName" required="" disabled>
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
                         </div>
-
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@_user.Email">
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@_user.Email" disabled>
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
                             </div>
                         </div>
-
                         <div class="col-12">
                             <label for="address" class="form-label">Address</label>
                             <InputTextArea type="text" class="form-control" id="address" placeholder="1234 Main St" required="" @bind-Value="_shipAddress"></InputTextArea>
@@ -94,7 +83,6 @@
                                 Please enter your shipping address.
                             </div>
                         </div>
-
                         <div class="col-12">
                             <label for="address" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="address" placeholder="123456789" required="" value="@_user.PhoneNumber">
@@ -103,11 +91,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <Button @onclick="PlaceTheOrder" class="btn btn-primary mt-3">Place the Order</Button>
-
                 </EditForm>
-            }
-        </ul>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-end">@_cartItems.Sum(ci => ci.Quantity * ci.Price)  &#107;&#114;</div>
+                </div>
+                <div class="buttons d-flex flex-row mt-5 gap-3 w-100">
+                    <button class="btn btn-outline-dark w-100" @onclick="PlaceTheOrder">Place The Order</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+}

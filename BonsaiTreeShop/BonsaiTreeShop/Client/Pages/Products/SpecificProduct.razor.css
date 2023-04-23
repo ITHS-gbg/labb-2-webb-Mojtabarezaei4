@@ -1,0 +1,32 @@
+﻿body {
+    background-color: #ecedee
+}
+
+.card {
+    border: none;
+    overflow: hidden
+}
+
+.main_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    height: 400px;
+    width: 100%;
+    overflow: hidden
+}
+
+.content p {
+    font-size: 12px
+}
+
+.right-side {
+    position: relative
+}
+
+.buttons .btn {
+    height: 50px;
+    width: 150px;
+    border-radius: 0px !important
+}

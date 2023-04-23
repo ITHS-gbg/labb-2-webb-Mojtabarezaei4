@@ -1,0 +1,33 @@
+﻿body {
+    background-color: #d6d2d2;
+    font-weight: 300;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.img-container {
+    position: relative;
+}
+
+    .img-container .first {
+        position: absolute;
+        width: 100%;
+    }
+
+    .img-container img {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+.category i {
+    color: #a9a6a6
+}
+
+.category span {
+    color: #a9a6a6
+}
+.product-detail-container {
+    padding: 10px;
+}
