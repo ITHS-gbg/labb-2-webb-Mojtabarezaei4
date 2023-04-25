@@ -5,7 +5,7 @@
 @inject NavigationManager _navigationManager
 
 <PageTitle>Add New Product</PageTitle>
-<h1 class="text-center mt-3">Add New Product</h1>
+<h1 class="text-center mt-3 text-light">Add New Product</h1>
 <div class="row g-5 d-flex justify-content-center mt-3">
     <div class="col-md-7 col-lg-8 w-50">
         <EditForm Model="NewProduct" OnValidSubmit="AddProduct" class="row g-4">
@@ -34,11 +34,11 @@
                 </div>
             </div>
             <div class="col-12">
-                <label class="form-label">Description</label>
+                <label class="form-label text-light">Description</label>
                 <InputTextArea @bind-Value="NewProduct.Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></InputTextArea>
             </div>
-            <div class="w-50">
-                <button type="submit" class="btn btn-primary">Add</button>
+            <div class="buttons">
+                <button type="submit" class="btn btn-outline-light">Add</button>
             </div>
         </EditForm>
     </div>

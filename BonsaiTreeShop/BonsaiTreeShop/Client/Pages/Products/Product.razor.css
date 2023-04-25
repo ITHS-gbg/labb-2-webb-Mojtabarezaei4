@@ -31,3 +31,8 @@
 .product-detail-container {
     padding: 10px;
 }
+.buttons .btn {
+    height: 40px;
+    width: 150px;
+    border-radius: 0px !important;
+}

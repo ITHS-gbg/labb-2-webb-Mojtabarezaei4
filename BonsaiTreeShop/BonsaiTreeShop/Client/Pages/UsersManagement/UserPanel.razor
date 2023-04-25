@@ -3,7 +3,81 @@
 
 <AuthorizeView Roles="Admin">
     <Authorized>
-        <h1 class="text-center mt-5 mb-5">Users</h1>
+        <PageTitle>User Management</PageTitle>
+        <div class="container">
+            <h1 class="text-center mt-5 mb-5 text-light">Users</h1>
+            <div class="input-group input-group-lg">
+                <input type="search" class="form-control mt-5 mb-5"
+                       @bind-value="SearchInput" @bind-value:event="oninput"
+                       placeholder="Search..." aria-label="Search">
+            </div>
+            <table class="table user-list">
+                <thead>
+                    <tr class="text-light">
+                        <th class="text-center"><span>Name</span></th>
+                        <th class="text-center"><span>Email</span></th>
+                        <th class="text-center"><span>PhoneNumber</span></th>
+                        <th class="text-center"><span>Address</span></th>
+                        <th class="text-center"><span>Option</span></th>
+                    </tr>
+                </thead>
+                <Virtualize Items="FilteredUsers.ToArray()" Context="user">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <span class="w-48 avatar gd-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p>@user.FirstName @user.LastName</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <p>@user.Email</p>
+                            </td>
+                            <td class="text-center">
+                                @if (string.IsNullOrEmpty(@user.PhoneNumber))
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    <p>@user.PhoneNumber</p>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (string.IsNullOrEmpty(@user.Address))
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    <p>@user.Address</p>
+                                }
+                            </td>
+                            <td>
+                                <div class="buttons d-flex justify-content-center">
+                                    <a href="orders?UserId=@user.Id" class="btn btn-outline-dark">Orders</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Virtualize>
+            </table>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@*
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <h1 class="text-center mt-5 mb-5 text-light">Users</h1>
         <div class="input-group input-group-lg">
             <input type="search" class="form-control mt-5 mb-5"
                    @bind-value="SearchInput" @bind-value:event="oninput"
@@ -37,3 +111,4 @@
         </table>
     </Authorized>
 </AuthorizeView>
+*@

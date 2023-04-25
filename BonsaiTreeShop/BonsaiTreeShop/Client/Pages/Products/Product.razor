@@ -1,7 +1,8 @@
 ﻿@inject IHttpClientFactory _httpClient
 @inject ICartService _addToCartService
 
-<h1 class="text-center mt-5 mb-5">Products</h1>
+<PageTitle>Products</PageTitle>
+<h1 class="text-center mt-5 mb-5 text-light">Products</h1>
 <div class="container mt-3 mb-3">
     <div class="input-group input-group-lg">
         <input type="search" class="form-control mt-5 mb-5"
@@ -27,9 +28,9 @@
                                 <span>@product.Category.Replace(" ", ", ")</span>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <a href="/products/@product.Id" class="btn btn-primary">Read More</a>
-                            <button class="btn btn-danger" @onclick="() => _addToCartService.BuyOnClickAsync(product)">Buy Now</button>
+                        <div class="mt-3 buttons">
+                            <a href="/products/@product.Id" class="btn btn-outline-dark">Read More</a>
+                            <a class="btn btn-outline-danger" @onclick="() => _addToCartService.BuyOnClickAsync(product)">Buy Now</a>
                         </div>
                     </div>
                 </div>

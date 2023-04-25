@@ -6,15 +6,11 @@
     border: none;
     overflow: hidden
 }
-
-.main_image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    height: 400px;
-    width: 100%;
-    overflow: hidden
+.card-custom {
+    box-shadow: 0px 0px 28px -7px rgba(0,0,0,1);
+    background: transparent;
+    color: #ecedee;
+    border: none;
 }
 
 .content p {
@@ -28,5 +24,11 @@
 .buttons .btn {
     height: 50px;
     width: 150px;
-    border-radius: 0px !important
+    border-radius: 0px !important;
 }
+
+.btn:hover {
+    color: gray !important;
+}
+
+

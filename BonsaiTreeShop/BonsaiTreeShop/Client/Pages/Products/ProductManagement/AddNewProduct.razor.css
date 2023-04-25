@@ -1,0 +1,9 @@
+﻿.buttons .btn {
+    height: 40px;
+    width: 200px;
+    border-radius: 0px !important;
+}
+
+.btn:hover {
+    color: gray !important;
+}

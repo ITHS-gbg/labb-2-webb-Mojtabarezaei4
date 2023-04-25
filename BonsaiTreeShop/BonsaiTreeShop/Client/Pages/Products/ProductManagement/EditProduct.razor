@@ -8,52 +8,54 @@
         @if (Product is null)
         {
             <PageTitle>No Product</PageTitle>
-            <h1 class="text-center mt-3">No Product</h1>
+            <h1 class="text-center mt-3 text-light">No Product</h1>
         }
         else
         {
-            <PageTitle>@Product.Name</PageTitle>
-            <h1 class="text-center mt-3">@Product.Name</h1>
-            <div class="row g-5">
-                <div class="col-md-5 col-lg-4 order-md-last w-50 d-flex align-items-center">
-                    <img src="@Product.Image" alt="@Product.Name image" class="w-100" />
-                </div>
-                <div class="col-md-7 col-lg-8 w-50">
-                    <EditForm Model="Product" Context="formContext" class="row g-4">
-                        <div class="col-12">
-                            <label class="form-label">Name</label>
-                            <InputText @bind-Value="Product.Name" class="form-control"></InputText>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Category</label>
-                            <InputText @bind-Value="Product.Category" class="form-control"></InputText>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Image</label>
-                            <InputText @bind-Value="Product.Image" class="form-control"></InputText>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Price</label>
-                            <InputNumber @bind-Value="Product.Price" class="form-control"></InputNumber>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Is In Stock</label>
-                            <InputCheckbox @bind-Value="Product.IsInStock" class="form-check-label"></InputCheckbox>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Description</label>
-                            <InputTextArea @bind-Value="Product.Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></InputTextArea>
-                        </div>
-                        <div class="w-50">
-                            <button type="submit" class="btn btn-primary" @onclick="@(() => UpdateProductAsync(formContext))">Update</button>
-                            <button type="submit" class="btn btn-danger" @onclick="@(() => DeleteProductAsync(formContext))">Delete</button>
-                        </div>
-                    </EditForm>
+            <PageTitle>Editing: @Product.Name</PageTitle>
+            <div class="container">
+                <h1 class="text-center mt-3 text-light">@Product.Name</h1>
+                <div class="row g-5">
+                    <div class="col-md-5 col-lg-4 order-md-last w-50 d-flex align-items-center">
+                        <img src="@Product.Image" alt="@Product.Name image" class="w-100" />
+                    </div>
+                    <div class="col-md-7 col-lg-8 w-50">
+                        <EditForm Model="Product" Context="formContext" class="row g-4">
+                            <div class="col-12">
+                                <label class="form-label text-light">Name</label>
+                                <InputText @bind-Value="Product.Name" class="form-control"></InputText>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-light">Category</label>
+                                <InputText @bind-Value="Product.Category" class="form-control"></InputText>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-light">Image</label>
+                                <InputText @bind-Value="Product.Image" class="form-control"></InputText>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-light">Price</label>
+                                <InputNumber @bind-Value="Product.Price" class="form-control"></InputNumber>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-light">Is In Stock</label>
+                                <InputCheckbox @bind-Value="Product.IsInStock" class="form-check-label"></InputCheckbox>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-light">Description</label>
+                                <InputTextArea @bind-Value="Product.Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></InputTextArea>
+                            </div>
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-outline-light" @onclick="@(() => UpdateProductAsync(formContext))">Update</button>
+                                <button type="submit" class="btn btn-outline-danger ms-2" @onclick="@(() => DeleteProductAsync(formContext))">Delete</button>
+                            </div>
+                        </EditForm>
+                    </div>
                 </div>
             </div>
         }
     </Authorized>
     <NotAuthorized>
-        <RedirectToHome/>
+        <RedirectToHome />
     </NotAuthorized>
 </AuthorizeView>

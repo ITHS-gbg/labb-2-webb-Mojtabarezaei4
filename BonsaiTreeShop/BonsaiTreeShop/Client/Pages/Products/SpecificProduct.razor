@@ -7,36 +7,38 @@
 @if (Product is null)
 {
     <PageTitle>No Product</PageTitle>
-    <h1 class="text-center mt-3">No Product</h1>
+    <h1 class="text-center mt-3 text-light">No Product</h1>
 }
 else
 {
     <PageTitle>@Product.Name</PageTitle>
-    <h1 class="text-center mt-3">@Product.Name</h1>
+    <h1 class="text-center mt-3 text-light">@Product.Name</h1>
     <div class="container mt-5 mb-5">
-        <div class="card" style="border: none;">
-            <div class="row g-0">
+        <div class="card card-custom">
+            <div class="row g-0 d-flex justify-content-center p-3">
                 <div class="col-md-6">
                     <div class="d-flex flex-column justify-content-center">
                         <div class="d-flex justify-content-center">
-                            <img src="@Product.Image" alt="@Product.Name Image" width="450">
+                            <img src="@Product.Image" alt="@Product.Name Image" >
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 w-50">
+            </div>
+            <div class="row g-0 d-flex justify-content-center">
+                <div class="col-md-6 w-50 text-center">
                     <div class="p-3">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="">
                             <h3>@Product.Name</h3>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <span>@Product.Category.Replace(" ", ", ")</span>
                         </div>
                         <div class="mt-2 content">
                             <p>@Product.Description</p>
                         </div>
                         <h3>@Product.Price kr</h3>
-                        <div class="d-flex flex-row align-items-center">
-                            <span>@Product.Category.Replace(" ", ", ")</span>
-                        </div>
-                        <div class="buttons d-flex flex-row mt-5 gap-3">
-                            <button class="btn btn-outline-dark" @onclick="() => _addToCartService.BuyOnClickAsync(Product)">Buy Now</button>
+                        <div class="buttons d-flex justify-content-center flex-row mt-5 gap-3">
+                            <button class="btn btn-outline-light text-light" @onclick="() => _addToCartService.BuyOnClickAsync(Product)">Buy Now</button>
                         </div>
                     </div>
                 </div>
