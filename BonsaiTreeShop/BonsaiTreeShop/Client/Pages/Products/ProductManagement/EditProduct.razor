@@ -8,13 +8,13 @@
         @if (Product is null)
         {
             <PageTitle>No Product</PageTitle>
-            <h1 class="text-center mt-3 text-light">No Product</h1>
+            <h1 class="text-center mt-5 mb-5 text-light">No Product</h1>
         }
         else
         {
             <PageTitle>Editing: @Product.Name</PageTitle>
             <div class="container">
-                <h1 class="text-center mt-3 text-light">@Product.Name</h1>
+                <h1 class="text-center mt-5 mb-5 text-light">@Product.Name</h1>
                 <div class="row g-5">
                     <div class="col-md-5 col-lg-4 order-md-last w-50 d-flex align-items-center">
                         <img src="@Product.Image" alt="@Product.Name image" class="w-100" />

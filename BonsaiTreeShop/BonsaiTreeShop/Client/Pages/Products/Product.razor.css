@@ -6,8 +6,20 @@
 .card {
     border: none;
     border-radius: 10px;
+    background-color: transparent;
+    color: #ecedee;
+}
+.card-custom {
+    box-shadow: 0px 0px 28px -7px rgba(0,0,0,1);
+    background: transparent;
+    color: #ecedee;
+    border: none;
 }
 
+.product-image {
+    max-height: 20rem;
+    background-size: cover;
+}
 .img-container {
     position: relative;
 }
