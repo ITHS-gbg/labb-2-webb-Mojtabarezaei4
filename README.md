@@ -24,7 +24,7 @@
 
 - [x] Det ska gå att lista alla Kunder
 
-- [ ] Det ska gå söka efter kunder på e-post adress
+- [x] Det ska gå söka efter kunder på e-post adress
 
 - [x] När en kund anmäler sig/köper placerar en order måste vi kunna spåra vilken/vilka produkter som kunden har köpt
 
@@ -75,13 +75,13 @@ Här lämnas det fritt, antingen kan vi använda JavaScript, React, Vue.js, Blaz
 
 - [x] Denna specifikation ska tydligt redogöra för alla endpoints och deras funktion.
 
-- [ ] För att få godkänt skall alla delar för produkthantering vara implementerade.
+- [x] För att få godkänt skall alla delar för produkthantering vara implementerade.
 
 - [x] Kravet på att följa Single Responsibility Principle skall vara implementerat.
 
 - [x] Repository Pattern skall vara implementerat och användas för all databaskommunikation.
 
-- [ ] En klientapplikation skall nyttja REST Api:et och uppfylla designkraven.
+- [x] En klientapplikation skall nyttja REST Api:et och uppfylla designkraven.
 
 ---
 
@@ -89,8 +89,8 @@ Här lämnas det fritt, antingen kan vi använda JavaScript, React, Vue.js, Blaz
 
 - [x] För väl godkänt skall alla krav på G nivån vara uppfyllda. Förutom detta skall REST Api:et även implementera Unit of Work mönstret.
 
-- [ ] Klientapplikationen skall dessutom kunna hantera deltagare och presentation av vilka kurser som deltagaren har valt att anmäla sig till eller köpt.
+- [x] Klientapplikationen skall dessutom kunna hantera deltagare och presentation av vilka kurser som deltagaren har valt att anmäla sig till eller köpt.
 
 - [x] Man ska dessutom nyttja rollbaseerad autentisering med JWT. Antingen egenimplementerat, OAuth eller med Identity Server.
 
-- [ ] Om en Admin är inloggad ska man få tillgång till en admin-sida där man kan se kunder och ordrar samt ändra i sortimentet.
+- [x] Om en Admin är inloggad ska man få tillgång till en admin-sida där man kan se kunder och ordrar samt ändra i sortimentet.
